@@ -56,6 +56,8 @@ class AuthController extends Controller
         $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? site_url('/');
 
         return $this->_render($this->config->views['login'], ['config' => $this->config]);
+        
+        
     }
 
     /**

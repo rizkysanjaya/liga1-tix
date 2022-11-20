@@ -8,6 +8,8 @@ class Contact extends Migration
 {
     public function up()
     {
+
+		// ini crud coba doang, tabel dummy
         $this->forge->addField([
 			'id'          => [
 				'type'           => 'INT',
@@ -36,6 +38,9 @@ class Contact extends Migration
 		$this->forge->addKey('id', TRUE);
 
 		$this->forge->createTable('contacts', TRUE);
+
+		//buat table lain disini >>>
+		
     }
 
     public function down()

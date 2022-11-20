@@ -4,7 +4,6 @@ namespace Config;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
-
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
 if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
@@ -35,13 +34,35 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+
+//route public
 $routes->get('/', 'Home::index');
-$routes->group('', ['filter' => 'login'], function($routes){
-    $routes->get('dashboard', 'Home::dashboard');
-    $routes->get('contact', 'ContactController::index');
-    $routes->add('contact', 'ContactController::create');
-    $routes->add('contact/edit/(:segment)', 'ContactController::edit/$1');
-    $routes->get('contact/delete/(:segment)', 'ContactController::delete/$1');
+$routes->get('contact', 'ContactController::index');
+$routes->add('contact', 'ContactController::create');
+$routes->add('contact/edit/(:segment)', 'ContactController::edit/$1');
+$routes->get('contact/delete/(:segment)', 'ContactController::delete/$1');
+
+//route admin
+$routes->group('', ['filter' => 'role:admin'], function($routes){
+    $routes->get('admin/dashboard', 'Admin::index');
+    
+    $routes->get('admin/data/user', 'Admin::userlist');
+    $routes->get('admin/data/match', 'Admin::matchlist');
+    $routes->get('admin/data/team', 'Admin::teamlist');
+    $routes->get('admin/data/stadion', 'Admin::stadionlist');
+    $routes->get('admin/data/tiket', 'Admin::tiketlist');
+    $routes->get('admin/data/transaksi', 'Admin::transaksilist');
+    // $routes->get('admin/users', 'UserController::index', ['filter' => 'role:admin,superadmin'])
+    // $routes->get('dashboard', 'Home::dashboard');
+});
+
+//routes user biasa
+$routes->group('', ['filter' => 'role:client'], function($routes){
+    $routes->get('pages/profile', 'User::index');
+    $routes->get('user/tiket', 'User::tiket');
+    $routes->get('user/transaksi', 'User::transaksi');
+    $routes->get('user/setting', 'User::setting');
 });
 
 

@@ -1,4 +1,34 @@
-# CodeIgniter 4 Application Starter
+# Liga1-Tix
+
+# Install :
+
+Masuk ke htdocs, buka terminal, masukan command :
+
+`git clone https://github.com/rizkysanjaya/liga1-tix.git`
+
+Buat database kosong dengan nama "liga" di phpmyadmin
+
+Import database dengan command :
+
+`php spark migrate -all`
+
+Setting .env sesuaikan
+
+Run app dengan :
+
+`php spark serve`
+
+Buka localhost:8080
+
+# Development
+
+Mau tambah fitur, ubah koding, dll Buka branch baru jgn di master
+
+`git checkout nama-branch`
+
+
+
+<!-- # CodeIgniter 4 Application Starter
 
 ## What is CodeIgniter?
 
@@ -61,4 +91,4 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mbstring](http://php.net/manual/en/mbstring.installation.php)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
 - xml (enabled by default - don't turn it off)
-# ini adalah projek crud dengan codeigniter
+# ini adalah projek crud dengan codeigniter -->
