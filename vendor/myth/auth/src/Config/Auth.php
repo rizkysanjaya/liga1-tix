@@ -76,6 +76,7 @@ class Auth extends BaseConfig
     public $views = [
         // 'login'           => 'Myth\Auth\Views\login',
         // 'register'        => 'Myth\Auth\Views\register',
+        //ganti views jangan di file asli, buat views baru terus diarahin
         'login'           => 'App\Views\auth\login',
         'register'        => 'App\Views\auth\register',
         'forgot'          => 'Myth\Auth\Views\forgot',
