@@ -14,6 +14,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
     );
 
     public static $prefixLengthsPsr4 = array (
+        'n' => 
+        array (
+            'nguyenary\\QRCodeMonkey\\' => 23,
+        ),
         'T' => 
         array (
             'Tests\\Support\\' => 14,
@@ -52,6 +56,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
     );
 
     public static $prefixDirsPsr4 = array (
+        'nguyenary\\QRCodeMonkey\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nguyenary/qr-code-monkey/src',
+        ),
         'Tests\\Support\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests/_support',
@@ -104,6 +112,13 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
             'org\\bovigo\\vfs\\' => 
             array (
                 0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
+            ),
+        ),
+        'C' => 
+        array (
+            'Curl' => 
+            array (
+                0 => __DIR__ . '/..' . '/curl/curl/src',
             ),
         ),
     );
