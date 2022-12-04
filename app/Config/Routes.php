@@ -38,28 +38,67 @@ $routes->set404Override();
 
 //route public
 $routes->get('/', 'Home::index');
-$routes->get('contact', 'ContactController::index');
-$routes->add('contact', 'ContactController::create');
-$routes->add('contact/edit/(:segment)', 'ContactController::edit/$1');
-$routes->get('contact/delete/(:segment)', 'ContactController::delete/$1');
+$routes->get('dashboard', 'Home::dashboard');
+$routes->get('user/landpage', 'Home::landpage');
 
 //route admin
-$routes->group('', ['filter' => 'role:admin'], function($routes){
+$routes->group('', ['filter' => 'role:admin'], function ($routes) {
+    //dashboard & profile
     $routes->get('admin/dashboard', 'Admin::index');
-    
+    $routes->get('admin/profile', 'Admin::profile');
+    $routes->get('admin/profile/edit', 'Admin::edit_profile');
+    //view data
     $routes->get('admin/data/user', 'Admin::userlist');
     $routes->get('admin/data/match', 'Admin::matchlist');
     $routes->get('admin/data/team', 'Admin::teamlist');
     $routes->get('admin/data/stadion', 'Admin::stadionlist');
     $routes->get('admin/data/tiket', 'Admin::tiketlist');
     $routes->get('admin/data/transaksi', 'Admin::transaksilist');
-    // $routes->get('admin/users', 'UserController::index', ['filter' => 'role:admin,superadmin'])
-    // $routes->get('dashboard', 'Home::dashboard');
+
+    //form add data
+    $routes->add('admin/data/create/add-user', 'Admin::adduser');
+    $routes->add('admin/data/create/add-pertandingan', 'Admin::addmatch');
+    $routes->add('admin/data/create/add-team', 'Admin::addteam');
+    $routes->add('admin/data/create/add-stadion', 'Admin::addstadion');
+    $routes->add('admin/data/create/add-tiket', 'Admin::addtiket');
+    $routes->add('admin/data/create/add-transaksi', 'Admin::addtransaksi');
+
+    //save add data
+    $routes->add('admin/data/create/saveteam', 'Admin::saveteam');
+    $routes->add('admin/data/create/savestadion', 'Admin::savestadion');
+    $routes->add('admin/data/create/savepertandingan', 'Admin::savepertandingan');
+    $routes->add('admin/data/create/savetiket', 'Admin::savetiket');
+    $routes->add('admin/data/create/savetransaksi', 'Admin::savetransaksi');
+
+
+    //form edit data
+    $routes->add('admin/data/user/edit/(:segment)', 'Admin::edit_user/$1');
+    $routes->add('admin/data/match/edit/(:segment)', 'Admin::edit_pertandingan/$1');
+    $routes->add('admin/data/team/edit/(:segment)', 'Admin::edit_team/$1');
+    $routes->add('admin/data/stadion/edit/(:segment)', 'Admin::edit_stadion/$1');
+    $routes->add('admin/data/tiket/edit/(:segment)', 'Admin::edit_tiket/$1');
+    $routes->add('admin/data/transaksi/edit/(:segment)', 'Admin::edit_transaksi/$1');
+
+    //save edit data
+    $routes->add('admin/data/edit/update_user/(:segment)', 'Admin::update_user/$1');
+    $routes->add('admin/data/edit/update_pertandingan/(:segment)', 'Admin::update_pertandingan/$1');
+    $routes->add('admin/data/edit/update_team/(:segment)', 'Admin::update_team/$1');
+    $routes->add('admin/data/edit/update_stadion/(:segment)', 'Admin::update_stadion/$1');
+
+
+    //delete data
+    $routes->get('admin/data/user/delete/(:segment)', 'Admin::delete_user/$1');
+    $routes->get('admin/data/match/delete/(:segment)', 'Admin::delete_match/$1');
+    $routes->get('admin/data/team/delete/(:segment)', 'Admin::delete_team/$1');
+    $routes->get('admin/data/stadion/delete/(:segment)', 'Admin::delete_stadion/$1');
+    $routes->get('admin/data/tiket/delete/(:segment)', 'Admin::delete_tiket/$1');
+    $routes->get('admin/data/transaksi/delete/(:segment)', 'Admin::delete_transaksi/$1');
 });
 
 //routes user biasa
-$routes->group('', ['filter' => 'role:client'], function($routes){
-    $routes->get('pages/profile', 'User::index');
+$routes->group('', ['filter' => 'role:client,admin'], function ($routes) {
+
+    $routes->get('user/profile', 'User::index');
     $routes->get('user/tiket', 'User::tiket');
     $routes->get('user/transaksi', 'User::transaksi');
     $routes->get('user/setting', 'User::setting');

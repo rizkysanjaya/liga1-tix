@@ -164,7 +164,7 @@ class CreateAuthTables extends Migration
             $this->forge->dropForeignKey('auth_users_permissions', 'auth_users_permissions_user_id_foreign');
             $this->forge->dropForeignKey('auth_users_permissions', 'auth_users_permissions_permission_id_foreign');
         }
-
+        
         $this->forge->dropTable('users', true);
         $this->forge->dropTable('auth_logins', true);
         $this->forge->dropTable('auth_tokens', true);
