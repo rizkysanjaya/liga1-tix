@@ -7,13 +7,17 @@ namespace Composer\Autoload;
 class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
 {
     public static $files = array (
-        '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
         'n' => 
         array (
             'nguyenary\\QRCodeMonkey\\' => 23,
@@ -25,12 +29,14 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
         ),
         'M' => 
         array (
             'Myth\\Auth\\' => 10,
+            'Mpdf\\' => 5,
         ),
         'L' => 
         array (
@@ -39,6 +45,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
         'K' => 
         array (
             'Kint\\' => 5,
+        ),
+        'H' => 
+        array (
+            'Http\\Message\\' => 13,
         ),
         'F' => 
         array (
@@ -56,6 +66,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'nguyenary\\QRCodeMonkey\\' => 
         array (
             0 => __DIR__ . '/..' . '/nguyenary/qr-code-monkey/src',
@@ -67,6 +81,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Container\\' => 
         array (
@@ -80,6 +98,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
         array (
             0 => __DIR__ . '/..' . '/myth/auth/src',
         ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
         'Laminas\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
@@ -87,6 +109,10 @@ class ComposerStaticInit41e40e7ff74b01c21a7b9af39db67568
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
+        'Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'Faker\\' => 
         array (

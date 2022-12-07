@@ -69,7 +69,7 @@ class QRCode
      * @param string|null $path Default returns image url. Path to save as file
      * @return string|null
      */
-    public function create(string $path = null): ?string
+    public function create(string $path = 'assets/img/qrcode/'): ?string
     {
         Request::setConfig($this->config);
         Request::setContent($this->data);
