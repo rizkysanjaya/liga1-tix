@@ -56,4 +56,36 @@ class Getkode extends Model
         }
         return "PRT" . $kd;
     }
+
+    //ini fungsi untuk generate kode tiket secara otomatis
+    function get_kdtiket()
+    {
+        $q = $this->db->query("SELECT MAX(RIGHT(kd_tiket,3)) AS kd_max FROM tiket");
+        $kd = "";
+        if ($q->getNumRows() > 0) {
+            foreach ($q->getResult() as $k) {
+                $tmp = ((int)$k->kd_max) + 1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        } else {
+            $kd = "00001";
+        }
+        return "TKT" . $kd;
+    }
+
+    //ini fungsi untuk generate kode order secara otomatis
+    function get_kdorder()
+    {
+        $q = $this->db->query("SELECT MAX(RIGHT(kd_order,3)) AS kd_max FROM orders");
+        $kd = "";
+        if ($q->getNumRows() > 0) {
+            foreach ($q->getResult() as $k) {
+                $tmp = ((int)$k->kd_max) + 1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        } else {
+            $kd = "00001";
+        }
+        return "ORD" . $kd;
+    }
 }
