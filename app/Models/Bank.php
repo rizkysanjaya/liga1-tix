@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Bank extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'banks';
+    protected $table            = 'bank';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;

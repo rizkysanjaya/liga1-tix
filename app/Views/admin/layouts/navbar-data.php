@@ -10,10 +10,8 @@
       ?>
 
       <?php if ($uri->getSegment(1) === 'admin') {
-        echo $uri->getSegment(3);
-        echo $uri->getSegment(4);
       } ?>
-      <h6 class="font-weight-bolder mb-0"><?= ucfirst($uri->getSegment(3)); ?> <?= ucfirst($uri->getSegment(4)); ?></h6>
+      <h6 class="font-weight-bolder mb-0"><?= ucfirst($uri->getSegment(2)); ?> <?= ucfirst($uri->getSegment(3)); ?></h6>
     </nav>
     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">

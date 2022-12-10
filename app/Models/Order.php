@@ -14,7 +14,7 @@ class Order extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kd_order', 'kd_tiket', 'id_user', 'kd_pertandingan', 'kd_bank', 'tgl_order', 'tribun', 'jml_tiket', 'no_tlp', 'email', 'expired', 'status', 'qrcode'];
+    protected $allowedFields    = ['kd_order', 'kd_tiket', 'id_user', 'kd_stadion', 'kd_pertandingan', 'kd_bank', 'tgl_order', 'tribun', 'harga_awal', 'jml_tiket', 'no_tlp', 'email', 'expired', 'status', 'qrcode'];
 
     // Dates
     protected $useTimestamps = false;

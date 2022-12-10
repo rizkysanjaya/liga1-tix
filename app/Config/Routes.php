@@ -41,34 +41,50 @@ $routes->get('/', 'Home::index');
 $routes->get('dashboard', 'Home::dashboard');
 $routes->get('user/landpage', 'Home::landpage');
 
+// $routes->get('tes/pdf', 'Home::pdf');
+
 //route admin
 $routes->group('', ['filter' => 'role:admin'], function ($routes) {
     //dashboard & profile
     $routes->get('admin/dashboard', 'Admin::index');
-    $routes->get('admin/profile', 'Admin::profile');
-    $routes->get('admin/profile/edit', 'Admin::edit_profile');
+    $routes->get('admin/profile/(:any)', 'Admin::profile/$1');
+    $routes->add('admin/profile/update_profile/(:any)', 'Admin::update_profile/$1');
+
     //view data
     $routes->get('admin/data/user', 'Admin::userlist');
     $routes->get('admin/data/match', 'Admin::matchlist');
     $routes->get('admin/data/team', 'Admin::teamlist');
     $routes->get('admin/data/stadion', 'Admin::stadionlist');
+
     $routes->get('admin/data/tiket', 'Admin::tiketlist');
-    $routes->get('admin/data/transaksi', 'Admin::transaksilist');
+    $routes->get('admin/data/tiket/view-tiket/(:any)', 'Admin::detail_tiket/$1');
+
+    $routes->get('admin/data/order', 'Admin::orderlist');
+    $routes->get('admin/data/order/view-order/(:any)', 'Admin::view_order/$1');
+    $routes->add('admin/data/order/inserttiket', 'Admin::inserttiket');
+
+    //download pdf
+    $routes->get('assets/etiket/(:any)', 'Admin::download/$1');
+    //kirim pdf ke email
+    $routes->get('admin/order/kirimemail/(:any)', 'Admin::kirimemail/$1');
+
+
+    $routes->get('admin/data/konfirmasi', 'Admin::konfirmasilist');
+    $routes->get('admin/data/konfirmasi/view-konfirm/(:any)', 'Admin::detail_konfirmasi/$1');
+
 
     //form add data
     $routes->add('admin/data/create/add-user', 'Admin::adduser');
     $routes->add('admin/data/create/add-pertandingan', 'Admin::addmatch');
     $routes->add('admin/data/create/add-team', 'Admin::addteam');
     $routes->add('admin/data/create/add-stadion', 'Admin::addstadion');
-    $routes->add('admin/data/create/add-tiket', 'Admin::addtiket');
-    $routes->add('admin/data/create/add-transaksi', 'Admin::addtransaksi');
+
 
     //save add data
     $routes->add('admin/data/create/saveteam', 'Admin::saveteam');
     $routes->add('admin/data/create/savestadion', 'Admin::savestadion');
     $routes->add('admin/data/create/savepertandingan', 'Admin::savepertandingan');
-    $routes->add('admin/data/create/savetiket', 'Admin::savetiket');
-    $routes->add('admin/data/create/savetransaksi', 'Admin::savetransaksi');
+
 
 
     //form edit data
@@ -76,8 +92,7 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
     $routes->add('admin/data/match/edit/(:segment)', 'Admin::edit_pertandingan/$1');
     $routes->add('admin/data/team/edit/(:segment)', 'Admin::edit_team/$1');
     $routes->add('admin/data/stadion/edit/(:segment)', 'Admin::edit_stadion/$1');
-    $routes->add('admin/data/tiket/edit/(:segment)', 'Admin::edit_tiket/$1');
-    $routes->add('admin/data/transaksi/edit/(:segment)', 'Admin::edit_transaksi/$1');
+
 
     //save edit data
     $routes->add('admin/data/edit/update_user/(:segment)', 'Admin::update_user/$1');
@@ -91,17 +106,24 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
     $routes->get('admin/data/match/delete/(:segment)', 'Admin::delete_match/$1');
     $routes->get('admin/data/team/delete/(:segment)', 'Admin::delete_team/$1');
     $routes->get('admin/data/stadion/delete/(:segment)', 'Admin::delete_stadion/$1');
-    $routes->get('admin/data/tiket/delete/(:segment)', 'Admin::delete_tiket/$1');
-    $routes->get('admin/data/transaksi/delete/(:segment)', 'Admin::delete_transaksi/$1');
 });
 
 //routes user biasa
 $routes->group('', ['filter' => 'role:client,admin'], function ($routes) {
 
-    $routes->get('user/profile', 'User::index');
+    $routes->get('user/profile/(:any)', 'User::index/$1');
     $routes->get('user/tiket', 'User::tiket');
     $routes->get('user/transaksi', 'User::transaksi');
     $routes->get('user/setting', 'User::setting');
+    $routes->get('user/matchlist', 'Tiket::index');
+    $routes->add('user/before-order/(:segment)', 'Tiket::before_order/$1');
+    $routes->add('user/lanjut_order', 'Tiket::lanjut_order');
+    $routes->add('user/order', 'Tiket::order');
+    $routes->add('user/gettiket/', 'Tiket::gettiket');
+    $routes->add('user/checkout/(:any)', 'Tiket::checkout/$1');
+    $routes->add('user/payment/(:any)', 'Tiket::payment/$1');
+    $routes->add('user/konfirmasi/(:any)/(:any)', 'Tiket::konfirmasi/$1/$2');
+    $routes->add('user/insertkonfirmasi', 'Tiket::insertkonfirmasi');
 });
 
 

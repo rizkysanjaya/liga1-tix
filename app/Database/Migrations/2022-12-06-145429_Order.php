@@ -28,6 +28,10 @@ class Order extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 50,
             ],
+            'kd_stadion' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+            ],
             'kd_bank' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
@@ -39,6 +43,10 @@ class Order extends Migration
             'tribun' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,
+            ],
+            'harga_awal' => [
+                'type' => 'INT',
+                'constraint' => 11,
             ],
             'jml_tiket' => [
                 'type' => 'INT',

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Konfirm extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'konfirms';
+    protected $table            = 'konfirm_order';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;

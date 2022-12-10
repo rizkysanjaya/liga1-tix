@@ -88,4 +88,20 @@ class Getkode extends Model
         }
         return "ORD" . $kd;
     }
+
+    //ini fungsi untuk generate kode konfirmasi secara otomatis
+    function get_kdkonfirmasi()
+    {
+        $q = $this->db->query("SELECT MAX(RIGHT(kd_konfirm,3)) AS kd_max FROM konfirm_order");
+        $kd = "";
+        if ($q->getNumRows() > 0) {
+            foreach ($q->getResult() as $k) {
+                $tmp = ((int)$k->kd_max) + 1;
+                $kd = sprintf("%04s", $tmp);
+            }
+        } else {
+            $kd = "00001";
+        }
+        return "KFM" . $kd;
+    }
 }
