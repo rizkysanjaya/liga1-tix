@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Tiket extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'tikets';
+    protected $table            = 'tiket';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;

@@ -9012,6 +9012,14 @@ fieldset:disabled .btn {
 	min-width: 100vw !important;
 }
 
+.hm-500 {
+	height: 200px !important;
+}
+
+.wm-800 {
+	width: 400px !important;
+}
+
 .h-25 {
 	height: 25% !important;
 }

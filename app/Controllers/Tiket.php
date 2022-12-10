@@ -7,9 +7,10 @@ use App\Models\Pertandingan;
 use App\Models\Getkode;
 use App\Models\Bank;
 use App\Models\Order;
-
-require_once 'vendor/autoload.php';
-
+use App\Models\Stadion;
+use App\Models\Team;
+use App\Models\User;
+use App\Models\Konfirm;
 use nguyenary\QRCodeMonkey\QRCode;
 
 
@@ -19,160 +20,180 @@ class Tiket extends BaseController
     protected $tiket;
     protected $bank;
     protected $order;
+    protected $stadion;
+    protected $team;
+    protected $konfirmasi;
 
 
     function __construct()
     {
-        $this->load->helper('tglindo_helper');
-        $this->pertandingan = new Pertandingan();
-        $this->tiket = new Tiket();
-        $this->bank = new Bank();
-        $this->order = new Order();
+
+        helper('tglindo_helper');
+        // $this->tiket = new Tiket();
+        // $this->bank = new Bank();
+        // $this->order = new Order();
 
         date_default_timezone_set("Asia/Jakarta");
     }
 
     public function index()
     {
+        $this->pertandingan = new Pertandingan();
+
         $data['title'] = "Match List";
-        $data['pertandingan'] = $this->pertandingan->where('status', '0')->findAll();
-        $this->load->view('user/matchlist', $data);
+        $data['pertandingans'] = $this->pertandingan->where('status', '0')->findAll();
+        return view('user/matchlist', $data);
     }
 
-    public function before_order($kd_pertandingan)
+
+    public function before_order($id)
     {
+        $this->pertandingan = new Pertandingan();
+        $this->stadion = new Stadion();
+        $this->team = new Team();
+
+
         $data['title'] = "View Order";
-        $data['pertandingan'] = $this->pertandingan->where('kd_pertandingan', $kd_pertandingan)->first();
-        // $data['tribun'] = $this->request->getVar('tribun');
-        $this->load->view('user/before_order', $data);
+        $data['pertandingan'] = $this->pertandingan->find($id);
+        $data['team1'] = $this->team->where('kd_team', $data['pertandingan']->kd_team1)->first();
+        $data['team2'] = $this->team->where('kd_team', $data['pertandingan']->kd_team2)->first();
+        $data['stadion'] = $this->stadion->where('kd_stadion', $data['pertandingan']->kd_stadion)->first();
+        return view('user/before-order', $data);
     }
 
-    public function order($kd_pertandingan)
+    //fungsi untuk menampilkan halaman order
+    public function order()
     {
 
+        if (!$this->validate([
+            'tribun' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tribun harus dipilih'
+                ]
+            ],
+            'jml_tiket' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Jumlah tiket harus diisi'
+                ]
+            ]
+        ])) {
+            $data['title'] = "View Order";
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
 
+        $this->pertandingan = new Pertandingan();
+        $this->bank = new Bank();
+        $this->team = new Team();
+        $this->stadion = new Stadion();
+        $this->order = new Order();
+
+        $kdpert = $this->request->getPost('kd_pertandingan');
+        $tribun = $this->request->getPost('tribun');
+        $jmltiket = $this->request->getPost('jml_tiket');
+        if ($tribun == 'timur') {
+            $harga = $this->pertandingan->where('kd_pertandingan', $kdpert)->first()->harga_tb_timur;
+        } elseif ($tribun == 'barat') {
+            $harga = $this->pertandingan->where('kd_pertandingan', $kdpert)->first()->harga_tb_barat;
+        } elseif ($tribun == 'vip') {
+            $harga = $this->pertandingan->where('kd_pertandingan', $kdpert)->first()->harga_tb_vip;
+        } elseif ($tribun == 'vvip') {
+            $harga = $this->pertandingan->where('kd_pertandingan', $kdpert)->first()->harga_tb_vvip;
+        }
         $data['title'] = "Order Tiket";
-        $data['pertandingan'] = $this->pertandingan->where(['kd_pertandingan' => $kd_pertandingan])->first();
+        $data['pertandingan'] = $this->pertandingan->where('kd_pertandingan', $kdpert)->first();
+        $data['team1'] = $this->team->where('kd_team', $data['pertandingan']->kd_team1)->first();
+        $data['team2'] = $this->team->where('kd_team', $data['pertandingan']->kd_team2)->first();
+        $data['stadion'] = $this->stadion->where('kd_stadion', $data['pertandingan']->kd_stadion)->first();
         $data['bank'] = $this->bank->findAll();
+        $data['total'] = $harga * $jmltiket;
+        $data['tribun'] = $tribun;
+        $data['tiket'] = $jmltiket;
+        $data['harga'] = $harga;
 
+        // print_r($kdpert);
+        // print_r($tribun);
+        // print_r($jmltiket);
 
-        $this->load->view('user/order', $data);
+        return view('user/order', $data);
     }
 
-    // public function gettiket($value = '')
-    // {
 
-    //     $getKode = model(Getkode::class);
-    //     // $satu_hari        = mktime(0,0,0,date("n"),date("j")+1,date("Y"));
-    // 	// $expired       = date("d-m-Y", $satu_hari)." ".date('H:i:s');
-    //     $jambeli = date("Y-m-d H:i:s"); 
-    //     $tanggal = hari_indo(date('N',strtotime($jambeli))).', '.tanggal_indo(date('Y-m-d',strtotime(''.$jambeli.''))).', '.date('H:i',strtotime($jambeli));
+    public function gettiket()
+    {
+
+        $getKode = model(Getkode::class);
+        $this->order = new Order();
+
+        $jambeli = date("Y-m-d H:i:s");
+        $tanggal = hari_indo(date('N', strtotime($jambeli))) . ', ' . tanggal_indo(date('Y-m-d', strtotime('' . $jambeli . ''))) . ', ' . date('H:i', strtotime($jambeli));
+        $kd_order = $getKode->get_kdorder();
+        $kd_pertandingan = $this->request->getPost('kd_pertandingan');
+        $kd_stadion = $this->request->getPost('kd_stadion');
+        $tribun = $this->request->getPost('tribun');
+        $jml_tiket = $this->request->getPost('jml_tiket');
+        $total = $this->request->getPost('total');
+        $kd_bank = $this->request->getPost('bank');
+        $email = $this->request->getPost('email');
+        $no_tlp = $this->request->getPost('no_tlp');
+        $harga = $this->request->getPost('harga');
+
+        $qrcode = new QRCode($kd_order);
+        $qrcode->setConfig([
+            'bgColor' => '#FFFFFF',
+            'body' => 'round',
+            'bodyColor' => '#ea3c33',
+            'brf1' => [],
+            'brf2' => [],
+            'brf3' => [],
+            'erf1' => [],
+            'erf2' => [],
+            'erf3' => [],
+            'eye' => 'frame11',
+            'eye1Color' => '#ea3c33',
+            'eye2Color' => '#ea3c33',
+            'eye3Color' => '#ea3c33',
+            'eyeBall' => 'ball2',
+            'eyeBall1Color' => '#ea3c33',
+            'eyeBall2Color' => '#ea3c33',
+            'eyeBall3Color' => '#ea3c33',
+            'gradientColor1' => '',
+            'gradientColor2' => '',
+            'gradientOnEyes' => 'true',
+            'gradientType' => 'linear',
+        ]);
+
+        $qrcode->setLogo('assets/img/logo-ct.png');
+        $qrcode->setFileType('png');
+        $qrcode->setSize(300);
+        $qrcode->create('assets/img/qrcode/' . $kd_order . '.png');
 
 
-    //     if(!$this->validate([
-    //         'tribun' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Tribun harus diisi'
-    //             ]
-    //         ],
-    //         'jml_tiket' => [
-    //             'rules' => 'required|',
-    //             'errors' => [
-    //                 'required' => 'Jumlah tiket harus diisi'
-    //             ]
-    //         ],
-    //         'no_tlp' => [
-    //             'rules' => 'required|numeric|max_length[13]|min_length[10]',
-    //             'errors' => [
-    //                 'required' => 'No. Telepon harus diisi',
-    //                 'numeric' => 'No. Telepon harus angka',
-    //                 'max_length' => 'No. Telepon maksimal 13 angka',
-    //                 'min_length' => 'No. Telepon minimal 10 angka'
-    //             ]
-    //         ],
-    //         'email' => [
-    //             'rules' => 'required|valid_email',
-    //             'errors' => [
-    //                 'required' => 'Email harus diisi',
-    //                 'valid_email' => 'Email tidak valid'
-    //             ]
-    //         ],
-    //         'bank' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Bank harus diisi'
-    //             ]
-    //         ],
+        $data = [
+            'kd_order' => $kd_order,
+            'kd_tiket' => 'TK-' . $kd_order . substr($kd_pertandingan, 3) . substr($kd_stadion, 3),
+            'id_user' => $this->request->getPost('id_user'),
+            'kd_pertandingan' => $kd_pertandingan,
+            'kd_stadion' => $kd_stadion,
+            'kd_bank' => $kd_bank,
+            'email' => trim($email),
+            'no_tlp' => trim($no_tlp),
+            'harga_awal' => $harga,
+            'jml_tiket' => $jml_tiket,
+            'tgl_order' => $tanggal,
+            'tribun' => $tribun,
+            'expired' => date("Y-m-d H:i:s", strtotime('+1 day')),
+            'status' => '1',
+            'qrcode' => $kd_order . '.png',
 
+        ];
 
-    //     ])){
-    //         session()->setFlashdata('error', $this->validator->listErrors());
-    //         return redirect()->back()->withInput();
-    //     }
-    //     $kode = $getKode->get_kdorder();
-    //     $qrcode = new QRCode($kode);
-    //     $qrcode->setConfig([
-    //         'bgColor' => '#FFFFFF',
-    //         'body' => 'square',
-    //         'bodyColor' => '#0277bd',
-    //         'brf1' => [],
-    //         'brf2' => [],
-    //         'brf3' => [],
-    //         'erf1' => [],
-    //         'erf2' => [],
-    //         'erf3' => [],
-    //         'eye' => 'frame0',
-    //         'eye1Color' => '#000000',
-    //         'eye2Color' => '#000000',
-    //         'eye3Color' => '#000000',
-    //         'eyeBall' => 'ball0',
-    //         'eyeBall1Color' => '#000000',
-    //         'eyeBall2Color' => '#000000',
-    //         'eyeBall3Color' => '#000000',
-    //         'gradientColor1' => '#000000',
-    //         'gradientColor2' => '#000000',
-    //         'gradientOnEyes' => 'true',
-    //         'gradientType' => 'linear',
-    //     ]);
-
-    //     $qrcode->setLogo('assets/img/logo-ct.png');
-    //     $qrcode->setFileType('png');
-    //     $qrcode->setSize(256);
-    //     $qrcode->create(''.$kode.'');
-    //     $tribun = $this->request->getVar('tribun');
-    //     if($tribun == 'VIP'){
-    //         $harga_tribun = $this->pertandingan->findColumn('harga_tb_vip')->where('kd_pertandingan', $kd_pertandingan)->first();
-    //     }elseif($tribun == 'VVIP'){
-    //         $harga_tribun = $this->pertandingan->findColumn('harga_tb_vvip')->where('kd_pertandingan', $kd_pertandingan)->first();
-    //     }elseif($tribun == 'Barat'){
-    //         $harga_tribun = $this->pertandingan->findColumn('harga_tb_barat')->where('kd_pertandingan', $kd_pertandingan)->first();
-    //     }elseif($tribun == 'Timur'){
-    //         $harga_tribun = $this->pertandingan->findColumn('harga_tb_timur')->where('kd_pertandingan', $kd_pertandingan)->first();
-    //     }
-
-    //     $data = [
-    //         'kd_order' => $kode,
-    //         'kd_tiket' => $getKode->get_kdtiket(),
-    //         'id_user' => $this->request->getVar('id_user'),
-    //         'kd_pertandingan' => $this->request->getVar('kd_pertandingan'),
-    //         'kd_bank' => $this->request->getVar('bank'),
-    //         'tgl_order' => $tanggal,
-    //         'tribun' => $this->request->getVar('tribun'),
-    //         'jml_tiket' => $this->request->getVar('jml_tiket'),
-    //         'no_tlp' => $this->request->getVar('no_tlp'),
-    //         'email' => $this->request->getVar('email'),
-    //         'expired' => date("Y-m-d H:i:s", strtotime('+1 day')),
-    //         'status' => '1',
-    //         'qrcode' => $qrcode,
-
-    //     ];
-
-    //     $this->order->insert($data);
-    //     $this->session->set_flashdata('message', 'Tiket berhasil di pesan');
-    //     return redirect()->to(base_url('user/checkout'. $getKode));
-
-    // }
+        $this->order->insert($data);
+        session()->setFlashdata('message', 'Tiket berhasil di pesan');
+        return redirect()->to(base_url('user/checkout/' . $kd_order));
+    }
 
     // public function payment($id = '')
     // {
@@ -180,83 +201,141 @@ class Tiket extends BaseController
     //     $sqlcek = $this->db->query("SELECT * FROM orders LEFT JOIN users on orders.id_user = users.id LEFT JOIN pertandingans on orders.kd_pertandingan = pertandingans.kd_pertandingan LEFT JOIN bank on orders.kd_bank = bank.kd_bank WHERE kd_order ='$id'")->result_array();
     //     // $data['count'] = count($sqlcek);
     //     $data['tiket'] = $sqlcek;
-    //     $this->load->view('user/payment', $data);
-    // }
-    // public function checkout($value = '')
-    // {
-
-    //     $data['tiket'] = $value;
-    //     $send['sendmail'] = $this->db->query("SELECT * FROM tbl_order LEFT JOIN tbl_jadwal on tbl_order.kd_jadwal = tbl_jadwal.kd_jadwal LEFT JOIN tbl_tujuan on tbl_jadwal.kd_tujuan = tbl_tujuan.kd_tujuan LEFT JOIN tbl_bank on tbl_order.kd_bank = tbl_bank.kd_bank WHERE kd_order ='$value'")->row_array();
-    //     $send['count'] = count($send['sendmail']);
-    //     //email
-    //     $subject = 'XTRANS';
-    //     $message = $this->load->view('user/sendmail', $send, TRUE);
-    //     $to      = $this->session->userdata('email');
-    //     $config = [
-    //         'mailtype'  => 'html',
-    //         'charset'   => 'utf-8',
-    //         'protocol'  => 'smtp',
-    //         'smtp_host' => 'smtp.googlemail.com',
-    //         'smtp_user' => 'liga1tix@gmail.com', // Ganti dengan email gmail kamu
-    //         'smtp_pass' => 'ltyvtfmfkpulohmm',    // Password gmail kamu
-    //         'smtp_port' => '465',
-    //         'crlf'      => "rn",
-    //         'newline'   => "rn"
-    //     ];
-    //     $this->load->library('email', $config);
-    //     $this->email->set_newline("\r\n");
-    //     $this->email->from('XTRANS');
-    //     $this->email->to($to);
-    //     $this->email->subject($subject);
-    //     $this->email->message($message);
-    //     if ($this->email->send()) {
-    //         $this->session->set_flashdata('message', 'swal("Cek", "Email kamu untuk melakukan pembayaran", "success");');
-    //         $this->load->view('user/checkout', $data);
-    //     } else {
-    //         echo 'Error! Kirim email error';
-    //     }
+    //     return view('user/payment', $data);
     // }
 
-    // public function konfirmasi($value = '', $harga = '')
-    // {
+    public function checkout($value = '')
+    {
 
-    //     $data['id'] = $value;
-    //     $data['total'] = $harga;
-    //     $this->load->view('user/konfirmasi', $data);
-    // }
-    // public function insertkonfirmasi($value = '')
-    // {
+        $db = \Config\Database::connect();
+        $this->user = new User();
+        $this->order = new Order();
 
-    //     $config['upload_path'] = './assets/img/payment';
-    //     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-    //     $this->load->library('upload', $config);
-    //     if (!$this->upload->do_upload('userfile')) {
-    //         $error = array('error' => $this->upload->display_errors());
-    //         $this->session->set_flashdata('message', 'swal("Gagal", "Cek Kembali Konfirmasi Anda", "error");');
-    //         redirect('tiket/konfirmasi/' . $this->input->post('kd_order') . '/' . $this->input->post('total'));
-    //     } else {
-    //         $upload_data = $this->upload->data();
-    //         $featured_image = '/assets/user/upload/payment/' . $upload_data['file_name'];
-    //         $data = array(
-    //             'kd_konfirmasi' => $this->getkod_model->get_kodkon(),
-    //             'kd_order'    => $this->input->post('kd_order'),
-    //             'nama_bank_konfirmasi'        => $this->input->post('bank_km'),
-    //             'nama_konfirmasi' =>  $this->input->post('nama'),
-    //             'norek_konfirmasi'        => $this->input->post('nomrek'),
-    //             'total_konfirmasi' => $this->input->post('total'),
-    //             'photo_konfirmasi' => $featured_image
-    //         );
-    //         $this->db->insert('tbl_konfirmasi', $data);
-    //         $this->session->set_flashdata('message', 'swal("Berhasil", "Terima Kasih Atas Konfirmasinya", "success");');
-    //         redirect('profile/tiketsaya/' . $this->session->userdata('kd_pelanggan'));
-    //     }
-    // }
-    // public function cetak($id = '')
-    // {
 
-    //     $order = $id;
-    //     $data['cetak'] = $this->db->query("SELECT * FROM tbl_order LEFT JOIN tbl_bus on tbl_order.kd_bus = tbl_bus.kd_bus LEFT JOIN tbl_jadwal on tbl_order.kd_jadwal = tbl_jadwal.kd_jadwal LEFT JOIN tbl_tujuan on tbl_jadwal.kd_tujuan = tbl_tujuan.kd_tujuan WHERE kd_order ='" . $id . "'")->result_array();
-    //     $tiket = $this->db->query("SELECT email_pelanggan FROM tbl_pelanggan WHERE kd_pelanggan ='" . $data['cetak'][0]['kd_pelanggan'] . "'")->row_array();
-    //     die(print_r($tiket));
-    // }
+        $data['tiket'] = $value;
+        $data['title'] = 'Checkout';
+        $query = $db->query("SELECT * FROM orders LEFT JOIN users on orders.id_user = users.id LEFT JOIN pertandingans on orders.kd_pertandingan = pertandingans.kd_pertandingan LEFT JOIN bank on orders.kd_bank = bank.kd_bank LEFT JOIN stadions on orders.kd_stadion = stadions.kd_stadion WHERE kd_order = '$value'");
+
+        $send['sendmail'] = $query->getRowObject();
+
+        $userItems = $this->order->where('kd_order', $send['sendmail']->kd_order)->first();
+        $userEmail = $userItems->email;
+        //email
+        $subject = 'Selesaikan Pembayaran | Liga1-Tix';
+        $message = view('pages/layouts/sendmail', $send);
+        $to      = $userEmail;
+
+        $email = \Config\Services::email();
+
+        $email->setFrom('liga1tix@gmail.com', 'Liga1-Tix');
+        $email->setTo($to);
+
+        $email->setSubject($subject);
+        $email->setMessage($message);
+
+        if ($email->send()) {
+            session()->setFlashdata('message', 'Cek Email kamu untuk melakukan pembayaran');
+            return view('user/checkout', $data);
+        } else {
+            session()->setFlashdata('message', 'Email gagal dikirim, hubungi admin');
+            return view('user/checkout', $data);
+        }
+    }
+
+    public function payment($id = '')
+    {
+        $db = \Config\Database::connect();
+        $data['title'] = 'Checkout';
+        $query = $db->query("SELECT * FROM orders LEFT JOIN users on orders.id_user = users.id INNER JOIN pertandingans on orders.kd_pertandingan = pertandingans.kd_pertandingan LEFT JOIN bank on orders.kd_bank = bank.kd_bank LEFT JOIN stadions on orders.kd_stadion = stadions.kd_stadion WHERE kd_order = '$id'");
+
+        $data['tiket'] = $query->getRowObject();
+        return view('user/payment', $data);
+    }
+
+    public function konfirmasi($value = '', $harga = '')
+    {
+
+        $data['id'] = $value;
+        $data['total'] = $harga;
+        $data['title'] = 'Konfirmasi Pembayaran';
+        return view('user/konfirmasi', $data);
+    }
+
+    public function insertkonfirmasi($value = '')
+    {
+
+        $this->konfirmasi = new Konfirm();
+        $getKode = model(Getkode::class);
+
+
+        if (!$this->validate([
+            'userfile' => [
+                'rules' => 'uploaded[userfile]|mime_in[userfile,image/jpg,image/jpeg,image/png]|max_size[userfile,4096]',
+                'errors' => [
+                    'uploaded' => 'Pilih gambar terlebih dahulu',
+                    'mime_in' => 'File yang diupload bukan gambar',
+                    'max_size' => 'Ukuran gambar terlalu besar, maksimal 4MB'
+
+                ]
+            ],
+            'nama' => [
+                'rules' => 'required|min_length[3]|max_length[100]|alpha_numeric_space',
+                'errors' => [
+                    'required' => 'Nama harus diisi',
+                    'min_length' => 'Nama terlalu pendek',
+                    'max_length' => 'Nama terlalu panjang',
+                    'alpha_numeric_space' => 'Nama hanya boleh berisi huruf, angka, dan spasi'
+                ]
+            ],
+            'bank_km' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Bank tidak boleh kosong'
+                ]
+            ],
+            'nomrek' => [
+                'rules' => 'required|min_length[13]|max_length[16]|numeric',
+                'errors' => [
+                    'required' => 'No Rekening tidak boleh kosong',
+                    'min_length' => 'No Rekening terlalu pendek, mohon masukan no rekening yang benar',
+                    'max_length' => 'No Rekening terlalu panjang, mohon masukan no rekening yang benar',
+                    'numeric' => 'No Rekening hanya boleh berisi angka'
+                ]
+            ]
+        ])) {
+
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->to('user/konfirmasi/' . $this->request->getVar('kd_order') . '/' . $this->request->getVar('total'));
+        }
+
+
+        $file = $this->request->getFile('userfile');
+
+        if ($file->isValid() && !$file->hasMoved()) {
+            $imageName = $file->getRandomName();
+            $file->move('assets/img/payment', $imageName);
+        }
+        $data = [
+            'kd_konfirm' => $getKode->get_kdkonfirmasi(),
+            'kd_order' => $this->request->getVar('kd_order'),
+            'nama' => trim($this->request->getVar('nama')),
+            'nama_bank' => trim($this->request->getVar('bank_km')),
+            'no_rek' => trim($this->request->getVar('nomrek')),
+            'jml_transfer' => trim($this->request->getVar('total')),
+            'bukti_transfer' => $imageName,
+
+        ];
+        $this->konfirmasi->insert($data);
+
+        $id = user()->id;
+
+        session()->setFlashdata('message', 'Upload Bukti Pembayaran Berhasil, Silahkan Tunggu Konfirmasi Admin');
+        return redirect()->to('/user/profile/' . $id);
+    }
+
+
+    public function download($id)
+    {
+        return $this->response->download('assets/etiket/' . $id . '.pdf', null);
+    }
 }

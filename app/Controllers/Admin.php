@@ -8,6 +8,9 @@ use App\Models\Team;
 use App\Models\Stadion;
 use App\Models\Pertandingan;
 use App\Models\Getkode;
+use App\Models\Tiket;
+use App\Models\Order;
+use App\Models\Konfirm;
 use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
 // use Myth\Auth\Entities\User;
@@ -19,6 +22,9 @@ class Admin extends BaseController
     protected $team;
     protected $stadion;
     protected $getkode;
+    protected $tiket;
+    protected $order;
+    protected $konfirm;
 
 
 
@@ -28,6 +34,12 @@ class Admin extends BaseController
         $this->pertandingan = new Pertandingan();
         $this->team = new Team();
         $this->stadion = new Stadion();
+        helper('tglindo_helper');
+        $this->tiket = new Tiket();
+        $this->konfirm = new Konfirm();
+        $this->order = new Order();
+
+        date_default_timezone_set("Asia/Jakarta");
     }
 
     //dashboard
@@ -37,11 +49,13 @@ class Admin extends BaseController
     }
 
     //profile
-    public function profile()
+    public function profile($id)
     {
+        $this->user = new User();
 
-        // $data['user'] = $this->user->find($id);
-        return view('admin/profile');
+
+        $data['user'] = $this->user->find($id);
+        return view('admin/profile', $data);
     }
 
     public function update_profile($id)
@@ -114,65 +128,66 @@ class Admin extends BaseController
 
             ];
         }
-        $this->user->update($id, $data);
+        $this->user->where('id' . $id)->set($data)->update();
+
         session()->setFlashdata('message', 'Update Data Berhasil');
         return redirect()->to('admin/profile/' . $id);
     }
 
     //user
-    public function userlist()
-    {
-        $data['users'] = $this->user->findAll();
+    // public function userlist()
+    // {
+    //     $data['users'] = $this->user->findAll();
 
-        return view('admin/data/user', $data);
-    }
+    //     return view('admin/data/user', $data);
+    // }
 
-    public function adduser()
-    {
-        return view('admin/data/create/add-user');
+    // public function adduser()
+    // {
+    //     return view('admin/data/create/add-user');
 
-        $users = model(User::class);
+    //     $users = model(User::class);
 
-        // Validate basics first since some password rules rely on these fields
-        $rules = config('Validation')->registrationRules ?? [
-            'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
-            'email'    => 'required|valid_email|is_unique[users.email]',
-        ];
+    //     // Validate basics first since some password rules rely on these fields
+    //     $rules = config('Validation')->registrationRules ?? [
+    //         'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
+    //         'email'    => 'required|valid_email|is_unique[users.email]',
+    //     ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
+    //     if (!$this->validate($rules)) {
+    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    //     }
 
-        // Validate passwords since they can only be validated properly here
-        $rules = [
-            'password'     => 'required|strong_password',
-            'pass_confirm' => 'required|matches[password]',
-        ];
+    //     // Validate passwords since they can only be validated properly here
+    //     $rules = [
+    //         'password'     => 'required|strong_password',
+    //         'pass_confirm' => 'required|matches[password]',
+    //     ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
+    //     if (!$this->validate($rules)) {
+    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    //     }
 
-        // Save the user
-        $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
-        $user              = new User($this->request->getPost($allowedPostFields));
+    //     // Save the user
+    //     $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
+    //     $user              = new User($this->request->getPost($allowedPostFields));
 
-        $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
+    //     $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
-        // Ensure default group gets assigned if set
-        if (!empty($this->config->defaultUserGroup)) {
-            $users = $users->withGroup($this->config->defaultUserGroup);
-        }
+    //     // Ensure default group gets assigned if set
+    //     if (!empty($this->config->defaultUserGroup)) {
+    //         $users = $users->withGroup($this->config->defaultUserGroup);
+    //     }
 
-        if (!$users->save($user)) {
-            return redirect()->back()->withInput()->with('errors', $users->errors());
-        }
+    //     if (!$users->save($user)) {
+    //         return redirect()->back()->withInput()->with('errors', $users->errors());
+    //     }
 
-        // Success!
-        // return redirect('admin/data/user', $data)->with('message', lang('Auth.registerSuccess'));
-        // return view;
+    //     // Success!
+    //     // return redirect('admin/data/user', $data)->with('message', lang('Auth.registerSuccess'));
+    //     // return view;
 
-    }
+    // }
 
 
 
@@ -770,15 +785,171 @@ class Admin extends BaseController
         return redirect()->to('/admin/data/stadion');
     }
 
-    //ticket
-    public function tiketlist()
-    {
-        return view('admin/data/tiket');
-    }
+
 
     //transaksi
     public function transaksilist()
     {
         return view('admin/data/transaksi');
+    }
+
+    //konfirmasi
+    public function konfirmasilist()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM konfirm_order GROUP BY kd_order")->getResultArray();
+        $data['title'] = 'Konfirm Order';
+        $data['konfirmasi'] = $query;
+
+        return view('admin/data/konfirmasi', $data);
+    }
+
+    public function detail_konfirmasi($id)
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM konfirm_order WHERE kd_order = '$id'")->getResultArray();
+        $data['title'] = 'Detail Konfirm Order';
+
+        if ($query == NULL) {
+            session()->setFlashdata('message', 'Tidak Ada Kiriman Konfirmasi');
+            return redirect()->back();
+        } else {
+            $data['konfirmasi'] = $query;
+            return view('admin/data/view-konfirm', $data);
+        }
+    }
+
+    //ticket
+    public function tiketlist()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM tiket GROUP BY kd_order")->getResultArray();
+        $data['title'] = 'Tiket';
+        $data['tiket'] = $query;
+
+        return view('admin/data/tiket', $data);
+    }
+
+    public function detail_tiket($id)
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT t.kd_order, t.kd_tiket, t.nama, t.harga, o.kd_pertandingan, o.jml_tiket, o.tgl_order FROM tiket as t INNER JOIN orders as o ON t.kd_order=o.kd_order INNER JOIN pertandingans as p ON o.kd_pertandingan=p.kd_pertandingan WHERE t.kd_order = '$id'")->getResultArray();
+        $data['title'] = 'Detail Tiket';
+        if ($query == NULL) {
+            session()->setFlashdata('message', 'Tidak Ada Tiket');
+            return view('admin/data/view-tiket/', $id);
+        } else {
+            $data['tiket'] = $query;
+            return view('admin/data/view-tiket', $data);
+        }
+    }
+
+    //order
+    public function orderlist()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM orders GROUP BY kd_order")->getResultArray();
+        $data['title'] = 'Order';
+        $data['order'] = $query;
+
+        return view('admin/data/order', $data);
+    }
+
+    public function view_order($id)
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM orders WHERE kd_order = '$id'")->getResultArray();
+        $data['title'] = 'Detail Order';
+        if ($query == NULL) {
+            session()->setFlashdata('message', 'Tidak Ada Order');
+            return view('admin/data/view-order/', $id);
+        } else {
+            $data['tiket'] = $query;
+            return view('admin/data/view-order', $data);
+        }
+    }
+
+    public function inserttiket()
+    {
+        $kd_order = $this->request->getVar('kd_order');
+        $kd_tiket = $this->request->getVar('kd_tiket');
+        $email = $this->request->getVar('email');
+        $jml_tiket = $this->request->getVar('jml_tiket');
+        $status = $this->request->getVar('status');
+        $total = $this->request->getVar('total');
+
+        //update status pembayaran
+        $this->order->set('status', $status)->where('kd_order', $kd_order)->update();
+
+        //data untuk cetak tiket
+        $db = \Config\Database::connect();
+
+        $data['cetak'] = $db->query("SELECT o.qrcode, o.kd_order, o.tgl_order, o.harga_awal, o.email, o.tribun, k.kd_pertandingan, k.tanggal, s.nama_stadion, s.alamat_stadion, o.kd_tiket, o.jml_tiket, ko.nama, ko.jml_transfer FROM orders as o LEFT JOIN pertandingans as k ON o.kd_pertandingan=k.kd_pertandingan LEFT JOIN stadions as s ON k.kd_stadion=s.kd_stadion LEFT JOIN konfirm_order as ko ON o.kd_order=ko.kd_order WHERE o.kd_order= '$kd_order'")->getResultArray();
+
+        //membuat tiket (pdf)
+        $pdfFilePath = "assets/etiket/" . $kd_order . ".pdf";
+        $html = view('user/cetaktiket', $data);
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($pdfFilePath, "F");
+
+
+        //insert ke tabel tiket
+        $save = [
+            'kd_order' => $kd_order,
+            'kd_tiket' => $kd_tiket,
+            'nama' => $email,
+            'harga' => $total,
+            'etiket' => $kd_order . '.pdf',
+            'status' => $status,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+
+        $this->tiket->insert($save);
+
+        session()->setFlashdata('message', 'Tiket Order Berhasil Di Proses');
+        return redirect()->to('/admin/data/order');
+    }
+
+    public function download($id)
+    {
+        return $this->response->download('assets/etiket/' . $id . '.pdf', null);
+    }
+
+    public function kirimemail($id = '')
+    {
+
+        $db = \Config\Database::connect();
+        $this->order = new Order();
+
+        $data['cetak'] = $db->query("SELECT o.qrcode, o.kd_order, o.tgl_order, o.harga_awal, o.email, o.tribun, k.kd_pertandingan, k.tanggal, s.nama_stadion, s.alamat_stadion, o.kd_tiket, o.jml_tiket, ko.nama, ko.jml_transfer FROM orders as o LEFT JOIN pertandingans as k ON o.kd_pertandingan=k.kd_pertandingan LEFT JOIN stadions as s ON k.kd_stadion=s.kd_stadion LEFT JOIN konfirm_order as ko ON o.kd_order=ko.kd_order WHERE o.kd_order= '$id'")->getResultArray();
+
+        //email
+
+        $attach  = base_url("assets/backend/upload/etiket/" . $id . ".pdf");
+
+        $userItems = $this->order->where('kd_order', $id)->first();
+        $userEmail = $userItems->email;
+        //email
+        $subject = 'E-ticket - Order ID ' . $id . ' - ' . date('dmY') . ' | Liga1-Tix';
+        $message =  view('user/cetaktiket', $data);
+        $to      = $userEmail;
+
+        $email = \Config\Services::email();
+
+        $email->setFrom('liga1tix@gmail.com', 'Liga1-Tix');
+        $email->setTo($to);
+
+        $email->setSubject($subject);
+        $email->setMessage($message);
+        // $email->attach($attach);
+
+        if ($email->send()) {
+            session()->setFlashdata('message', 'Email berhasil dikirim ke pelanggan');
+            return redirect()->to('/admin/data/order');
+        } else {
+            session()->setFlashdata('error', 'Email gagal dikirim, hubungi Tim IT');
+            return redirect()->to('/admin/data/order');
+        }
     }
 }

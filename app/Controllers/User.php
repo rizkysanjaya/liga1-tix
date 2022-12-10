@@ -3,11 +3,18 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Order;
+
 
 class User extends BaseController
 {
-    public function index()
+    protected $order;
+
+    public function index($id)
     {
-        return view('pages/profile');
+        $this->order = new Order();
+
+        $data['tiket'] = $this->order->where('id_user', $id)->findAll();
+        return view('user/profile', $data);
     }
 }

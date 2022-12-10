@@ -12,7 +12,7 @@
       <li class="nav-item">
         <?php $uri = current_url(true); ?>
 
-        <a class="nav-link  <?php echo $uri->getSegment(3) == 'dashboard' ? 'active' : '' ?>" href="<?= base_url('admin/dashboard') ?>">
+        <a class="nav-link  <?php echo $uri->getSegment(2) == 'dashboard' ? 'active' : '' ?>" href="<?= base_url('admin/dashboard') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <title>shop </title>
@@ -32,18 +32,19 @@
         </a>
       </li>
       <!-- under maintenance -->
-      <!-- <li class="nav-item">
-        <a class="nav-link <?php echo $uri->getSegment(4) == 'user' ? 'active' : '' ?>" href="<?= base_url('admin/data/user') ?>">
+      <li class="nav-item">
+        <a class="nav-link <?php echo $uri->getSegment(3) == 'konfirmasi' ? 'active' : '' ?>" href="<?= base_url('admin/data/konfirmasi') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-              <path d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+              <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Data User</span>
+          <span class="nav-link-text ms-1">Konfirmasi Order</span>
         </a>
-      </li> -->
+      </li>
       <li class="nav-item">
-        <a class="nav-link  <?php echo $uri->getSegment(4) == 'match' ? 'active' : '' ?>" href="<?= base_url('admin/data/match') ?>">
+        <a class="nav-link  <?php echo $uri->getSegment(3) == 'match' ? 'active' : '' ?>" href="<?= base_url('admin/data/match') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -54,7 +55,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <?php echo $uri->getSegment(4) == 'tiket' ? 'active' : '' ?>" href="<?= base_url('admin/data/tiket') ?>">
+        <a class="nav-link <?php echo $uri->getSegment(3) == 'tiket' ? 'active' : '' ?>" href="<?= base_url('admin/data/tiket') ?>">
 
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -66,18 +67,18 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link  <?php echo $uri->getSegment(4) == 'transaksi' ? 'active' : '' ?>" href="<?= base_url('admin/data/transaksi') ?>">
+        <a class="nav-link  <?php echo $uri->getSegment(3) == 'order' ? 'active' : '' ?>" href="<?= base_url('admin/data/order') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
               <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
               <path d="M64 32C28.7 32 0 60.7 0 96v32H576V96c0-35.3-28.7-64-64-64H64zM576 224H0V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V224zM112 352h64c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-8.8 0-16-7.2-16-16z" />
             </svg>
           </div>
-          <span class="nav-link-text ms-1">Data Transaksi</span>
+          <span class="nav-link-text ms-1">Data Order</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link  <?php echo $uri->getSegment(4) == 'stadion' ? 'active' : '' ?>" href="<?= base_url('admin/data/stadion') ?>">
+        <a class="nav-link  <?php echo $uri->getSegment(3) == 'stadion' ? 'active' : '' ?>" href="<?= base_url('admin/data/stadion') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
               <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -88,7 +89,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link  <?php echo $uri->getSegment(4) == 'team' ? 'active' : '' ?>" href="<?= base_url('admin/data/team') ?>">
+        <a class="nav-link  <?php echo $uri->getSegment(3) == 'team' ? 'active' : '' ?>" href="<?= base_url('admin/data/team') ?>">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -96,26 +97,6 @@
             </svg>
           </div>
           <span class="nav-link-text ms-1">Data Team</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link  " href="../pages/billing.html">
-          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <title>credit-card</title>
-              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                  <g transform="translate(1716.000000, 291.000000)">
-                    <g transform="translate(453.000000, 454.000000)">
-                      <path class="color-background opacity-6" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"></path>
-                      <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <span class="nav-link-text ms-1">Billing</span>
         </a>
       </li>
       <li class="nav-item">
