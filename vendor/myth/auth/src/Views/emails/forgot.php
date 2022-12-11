@@ -1,11 +1,11 @@
-<p>Someone requested a password reset at this email address for <?= site_url() ?>.</p>
+<p>Seseorang telah melakukan permintaan reset password pada email ini di halaman <?= site_url() ?>.</p>
 
-<p>To reset the password use this code or URL and follow the instructions.</p>
+<p>Untuk reset password gunakan code atau URL dan ikuti instruksi.</p>
 
-<p>Your Code: <?= $hash ?></p>
+<p>Code Anda: <?= $hash ?></p>
 
-<p>Visit the <a href="<?= url_to('reset-password') . '?token=' . $hash ?>">Reset Form</a>.</p>
+<p>Kunjungi <a href="<?= url_to('reset-password') . '?token=' . $hash ?>">Reset Form</a>.</p>
 
 <br>
 
-<p>If you did not request a password reset, you can safely ignore this email.</p>
+<p>ika anda tidak melakukan permintaan reset, Anda dapat mengabaikan email ini.</p>

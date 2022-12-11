@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="<?= base_url(); ?>/assets/img/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>/assets/img/favicon-16x16.png">
   <title>
-    Register | Liga1-tix
+    Lupa Password | Liga1-tix
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -38,6 +38,7 @@
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
+
       </div>
     </div>
   </div>
@@ -47,7 +48,7 @@
         <div class="container">
           <div class="row">
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-              <div class="card card-plain mt-4 mb-4">
+              <div class="card card-plain mt-8 mb-10">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <!-- <span style="ml-5">
                   <img src="../assets/img/android-icon-96x96.png" class="navbar-brand-img h-30" alt="main_logo">
@@ -56,7 +57,7 @@
                     <h2 class="font-weight-bolder text-primary text-gradient">Liga1-Tix</h2>
                   </a>
                   <!-- <h6 class="font-weight-bolder text-primary text-gradient">Selamat datang</h6> -->
-                  <p class="mb-0">Selamat datang. Silahkan buat akun Anda untuk melanjutkan.</p>
+                  <p class="mb-0">Lupa password? Masukan email dan kami akan mengirimkan instruksi untuk reset password.</p>
                 </div>
                 <div class="card-body">
                   <div class="mt-3 ml-5 mr-3">
@@ -64,39 +65,23 @@
 
                   </div>
 
-                  <form action="<?= url_to('register') ?>" method="post" role="form">
+                  <form action="<?= url_to('forgot') ?>" method="post" role="form">
                     <?= csrf_field() ?>
-
-                    <div class="mb-3">
-                      <label for="username" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" aria-label="Username" aria-describedby="username-addon" value="<?= old('username') ?>">
-                    </div>
 
                     <div class="mb-3">
                       <label for="email" class="form-label">Email</label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="Email" aria-label="Email" aria-describedby="email-addon" value="<?= old('email') ?>">
                     </div>
 
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="password" name="password" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="pass_confirm" class="form-label">Konfirmasi Password</label>
-                      <input type="password" class="form-control" id="pass_confirm" name="pass_confirm" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon">
-                    </div>
-
                     <div class="text-center">
-                      <button type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"><?= lang('Auth.register') ?></button>
+                      <button type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0"><?= lang('Auth.sendInstructions') ?></button>
                     </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <?php if ($config->allowRegistration) : ?>
                     <p class="mb-4 text-sm mx-auto">
-                      Sudah punya akun?
-                      <a href="<?= url_to('login') ?>" class="text-primary text-gradient font-weight-bold">Login</a>
+                      <a href="<?= url_to('login') ?>" class="text-primary text-gradient font-weight-bold">Kembali Login</a>
                     </p>
                   <?php endif; ?>
                 </div>
@@ -112,22 +97,18 @@
       </div>
     </section>
   </main>
-  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <footer class="footer py-5">
-    <div class="container">
-      <div class="row">
 
-      </div>
-      <div class="row">
-        <div class="col-8 mx-auto text-center mt-1">
-          <p class="mb-0 text-secondary">
-            Copyright © <script>
-              document.write(new Date().getFullYear())
-            </script> Liga1-Tix.
-          </p>
-        </div>
-      </div>
+  </div>
+  <div class="row">
+    <div class="col-8 mx-auto text-center mt-1">
+      <p class="mb-0 text-secondary">
+        Copyright © <script>
+          document.write(new Date().getFullYear())
+        </script> Liga1-Tix.
+      </p>
     </div>
+  </div>
+  </div>
   </footer>
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <!--   Core JS Files   -->

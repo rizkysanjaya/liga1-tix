@@ -14,7 +14,12 @@ class User extends BaseController
     {
         $this->order = new Order();
 
-        $data['tiket'] = $this->order->where('id_user', $id)->findAll();
+        $data['tiket'] = $this->order->where('id_user', user()->id)->findAll();
         return view('user/profile', $data);
+    }
+
+    public function download($id)
+    {
+        return $this->response->download('assets/etiket/' . $id . '.pdf', null);
     }
 }

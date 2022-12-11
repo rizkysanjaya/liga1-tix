@@ -14,7 +14,7 @@ class Pertandingan extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kd_pertandingan', 'kd_team1', 'kd_team2', 'kd_stadion', 'tanggal', 'waktu', 'banner_image', 'skor_team1', 'skor_team2', 'harga_tb_timur', 'harga_tb_barat', 'harga_tb_vip', 'harga_tb_vvip', 'status'];
+    protected $allowedFields    = ['kd_pertandingan', 'kd_team1', 'kd_team2', 'nama_team1', 'nama_team2', 'logo_team1', 'logo_team2', 'kd_stadion', 'tanggal', 'waktu', 'banner_image', 'skor_team1', 'skor_team2', 'harga_tb_timur', 'harga_tb_barat', 'harga_tb_vip', 'harga_tb_vvip', 'status'];
 
     // Dates
     protected $useTimestamps = false;

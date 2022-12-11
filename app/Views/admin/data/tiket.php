@@ -91,12 +91,12 @@
                           </div>
                         </td>
                         <td class="align-middle text-sm">
-                          <p class="text-xs font-weight-bold mb-0"><?= $k['harga']; ?></p>
+                          <p class="text-xs font-weight-bold mb-0">Rp <?= number_format($k['harga'], 0, ',', '.'); ?>,-</p>
                         </td>
 
                         <td>
                           <a class="btn bg-gradient-info" href="<?= base_url('admin/data/tiket/view-tiket/' . $k['kd_order']) ?>">
-                            Lihat
+                            <i class="fas fa-eye"></i>
                           </a>
                         </td>
                       </tr>

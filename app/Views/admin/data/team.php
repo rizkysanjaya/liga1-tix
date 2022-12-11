@@ -97,10 +97,10 @@
                           <p class="text-xs font-weight-bold mb-0"><?= $team->kota ?></p>
                         </td>
                         <td>
-                          <a class="btn btn-outline-info" href="<?= base_url('admin/data/team/edit/' . $team->id) ?>">
+                          <a class="btn bg-gradient-info" href="<?= base_url('admin/data/team/edit/' . $team->id) ?>">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a class="btn btn-outline-danger" href="<?= base_url('admin/data/team/delete/' . $team->id) ?>" onclick="return confirm('Are you sure ?')">
+                          <a class="btn bg-gradient-danger" href="<?= base_url('admin/data/team/delete/' . $team->id) ?>" onclick="return confirm('Are you sure ?')">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>

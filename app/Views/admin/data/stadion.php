@@ -94,10 +94,10 @@
                           </span>
                         </td>
                         <td>
-                          <a class="btn btn-outline-info" href="<?= base_url('admin/data/stadion/edit/' . $stadion->id) ?>">
+                          <a class="btn bg-gradient-info" href="<?= base_url('admin/data/stadion/edit/' . $stadion->id) ?>">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a class="btn btn-outline-danger" href="<?= base_url('admin/data/stadion/delete/' . $stadion->id) ?>" onclick="return confirm('Are you sure ?')">
+                          <a class="btn bg-gradient-danger" href="<?= base_url('admin/data/stadion/delete/' . $stadion->id) ?>" onclick="return confirm('Are you sure ?')">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>

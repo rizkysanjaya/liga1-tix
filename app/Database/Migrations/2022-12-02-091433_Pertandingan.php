@@ -28,6 +28,22 @@ class Pertandingan extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 50,
             ],
+            'nama_team1' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+            ],
+            'nama_team2' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+            ],
+            'logo_team1' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'logo_team2' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'kd_stadion' => [
                 'type' => 'VARCHAR',
                 'constraint' => 50,

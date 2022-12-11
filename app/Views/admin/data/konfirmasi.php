@@ -98,7 +98,7 @@
                           <p class="text-xs font-weight-bold mb-0"><?= $k['no_rek']; ?></p>
                         </td>
                         <td class="align-middle text-sm">
-                          <p class="text-xs font-weight-bold mb-0"><?= $k['jml_transfer']; ?></p>
+                          <p class="text-xs font-weight-bold mb-0"> Rp <?= number_format($k['jml_transfer'], 0, ',', '.'); ?>,-</p>
                         </td>
                         <td>
                           <a class="btn bg-gradient-info" href="<?= base_url('admin/data/konfirmasi/view-konfirm/' . $k['kd_order']) ?>">

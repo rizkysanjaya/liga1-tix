@@ -233,9 +233,7 @@
                           </div>
                         </div>
                         <div class="row form-group">
-                          <input type="hidden" class="form-control" name="total" value="<?php $total =
-                                                                                          $tiket[0]['jml_tiket'] * $tiket[0]['harga_awal'];
-                                                                                        echo $total ?>" readonly>
+
                           <label for="" class="col-sm-12 control-label">Total Pembayaran</label>
                           <div class="col-sm-12">
                             <p><b>Rp <?php $total =
@@ -243,6 +241,7 @@
                                       echo number_format($total) ?></b></p>
                             </select>
                           </div>
+                          <input type="hidden" name="total" value="<?= $total ?>">
                         </div>
                       </div>
                     </div>

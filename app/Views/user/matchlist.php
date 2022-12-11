@@ -26,7 +26,7 @@
         <?= $this->include('pages/layouts/navbar') ?>
 
     </div>
-    <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/vr-bg.jpg') ; background-size: cover;">
+    <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/curved-images/bg-color.png') ; background-size: cover;">
 
         <main class="main-content mt-1 border-radius-lg">
             <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-9">
@@ -35,61 +35,51 @@
                 <div class="card mb-5">
                     <div class="card-header">
                         <i class="fa fa-list-alt"></i> Daftar Match
+                        <a href="<?php echo base_url('user/landpage') ?>" class="btn btn-primary ml-10 justify-content-end">Kembali </a>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">kode match</th>
-                                        <th>Team</th>
-                                        <th scope="col">Stadion</th>
-                                        <th scope="col">tanggal</th>
-                                        <th>waktu</th>
-                                        <th scope="col">banner</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($pertandingans as $pertandingan) : ?>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" class="avatar avatar-sm me-3" alt="pertandingan1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><?= $pertandingan->kd_team1;
-                                                                                    $pertandingan->kd_team2 ?></h6>
-                                                        <p class="text-xs text-secondary mb-0"><?= $pertandingan->kd_pertandingan ?></p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <!-- css table belum rapih yang deskripsi-->
-                                                <div class="d-flex px-2 py-1">
-                                                    <p class="text-xs font-weight-bold mb-0">
-                                                        <?= $pertandingan->skor_team1;
-                                                        $pertandingan->skor_team2;  ?>
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <p class="text-xs font-weight-bold mb-0"><?= $pertandingan->kd_stadion ?></p>
-                                            </td>
-                                            <td>
 
-                                                <a class="btn btn-outline-info" href="<?= base_url('user/before-order/' . $pertandingan->id) ?>">
-                                                    Pesan
-                                                </a>
+                        <!-- jika data tidak ada : -->
+                        <?php if (!isset($pertandingans)) : ?>
+                            <div class="alert alert-warning" role="alert">
+                                Belum Ada Pertandingan Yang Diadakan, Stay Tuned!
+                            </div>
 
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                        <?php else : ?>
+                            <?php foreach ($pertandingans as $pertandingan) : ?>
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="<?php echo base_url('landpage') ?>" class="btn btn-primary pull-left">Kembali </a>
+                                <div class="card">
+                                    <!-- Card image -->
+                                    <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                        <img class="border-radius-lg w-100" src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" alt="Image placeholder">
+                                        <!-- List group -->
+                                        <ul class="list-group list-group-flush mt-2">
+                                            <li class="list-group-item">
+                                                <h4 class="card-title mb-3"><?= nama_hari($pertandingan->tanggal) . ",  " . tgl_indo($pertandingan->tanggal) ?></h4>
+                                                <span class="badge badge-sm bg-gradient-warning card-title mb-3">
+                                                    <?= " pukul" . $pertandingan->waktu ?>
+                                                </span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <!-- Card body -->
+                                    <div class="card-body">
+                                        <h3 class="card-title mb-3"><?= $pertandingan->nama_team1 . ' VS ' .
+                                                                        $pertandingan->nama_team2 ?></h3>
+
+                                        <a class="btn bg-gradient-primary" href="<?= base_url('user/before-order/' . $pertandingan->id) ?>">
+                                            Pesan
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            <?php endforeach; ?>
+
+                        <?php endif; ?>
+                        <br>
+
+
                     </div>
                 </div>
         </main>
@@ -102,8 +92,8 @@
                         © <script>
                             document.write(new Date().getFullYear())
                         </script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="" class="font-weight-bold" target="_blank">Liga1-Tix</a>
+
+                        <a href="" class="font-weight-bold" target="">Liga1-Tix</a>
                     </div>
                 </div>
             </div>

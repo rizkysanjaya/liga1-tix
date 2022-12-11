@@ -26,7 +26,7 @@
         <?= $this->include('pages/layouts/navbar') ?>
 
     </div>
-    <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('<? base_url('/assets/img/vr-bg.jpg') ?>') ; background-size: cover;">
+    <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/curved-images/bg-color.png') ; background-size: cover;">
         <?php $validation = \Config\Services::validation(); ?>
         <?php if (!empty(session()->getFlashdata('error'))) : ?>
             <div class="alert alert-danger alert-dismissible fade show m-md-4" role="alert">
@@ -150,8 +150,8 @@
                         © <script>
                             document.write(new Date().getFullYear())
                         </script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="" class="font-weight-bold" target="_blank">Liga1-Tix</a>
+
+                        <a href="" class="font-weight-bold" target="">Liga1-Tix</a>
                     </div>
                 </div>
             </div>

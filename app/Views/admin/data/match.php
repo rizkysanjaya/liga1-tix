@@ -57,9 +57,9 @@
                 <table class="table align-items-center mb-0" id="dataTable" style="table-layout:auto">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pertandingan Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kota</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pertandingan Team</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
@@ -72,8 +72,8 @@
                               <img src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" class="avatar avatar-sm me-3" alt="pertandingan1">
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm"><?= $pertandingan->kd_team1;
-                                                        $pertandingan->kd_team2 ?></h6>
+                              <h6 class="mb-0 text-sm"><?= $pertandingan->nama_team1 . ' VS ' .
+                                                          $pertandingan->nama_team2 ?></h6>
                               <p class="text-xs text-secondary mb-0"><?= $pertandingan->kd_pertandingan ?></p>
                             </div>
                           </div>
@@ -82,46 +82,29 @@
                           <!-- css table belum rapih yang deskripsi-->
                           <div class="d-flex px-2 py-1">
                             <p class="text-xs font-weight-bold mb-0">
-                              <?= $pertandingan->skor_team1;
-                              $pertandingan->skor_team2;  ?>
+                              <?= $pertandingan->tanggal  ?>
                             </p>
                           </div>
                         </td>
                         <td class="align-middle text-sm">
-                          <p class="text-xs font-weight-bold mb-0"><?= $pertandingan->kd_stadion ?></p>
+                          <?php if ($pertandingan->status == '0') { ?>
+                            <span class="badge badge-sm bg-gradient-secondary">upcoming</span>
+                          <?php } elseif ($pertandingan->status == '1') { ?>
+                            <span class="badge badge-sm bg-gradient-warning">live</span>
+                          <?php } else { ?>
+                            <span class="badge badge-sm bg-gradient-info">ended</span>
+                          <?php } ?>
                         </td>
                         <td>
-                          <a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#viewModal-<?= $pertandingan->id ?>">
-                            <i class="fas fa-eye"></i>
-                          </a>
-                          <a class="btn btn-outline-info" href="<?= base_url('admin/data/match/edit/' . $pertandingan->id) ?>">
+                          <a class="btn bg-gradient-info" href="<?= base_url('admin/data/match/edit/' . $pertandingan->id) ?>">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a class="btn btn-outline-danger" href="<?= base_url('admin/data/match/delete/' . $pertandingan->id) ?>" onclick="return confirm('Are you sure ?')">
+                          <a class="btn bg-gradient-danger" href="<?= base_url('admin/data/match/delete/' . $pertandingan->id) ?>" onclick="return confirm('Are you sure ?')">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
                       </tr>
-                      <!-- View Modal -->
-                      <div class="modal fade" id="viewModal-<?= $pertandingan->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Detail Data</h5>
-                              <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              tampilin detail data
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn bg-gradient-primary" data-bs-dismiss="modal">Tutup</button>
 
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     <?php endforeach; ?>
                   </tbody>
                 </table>

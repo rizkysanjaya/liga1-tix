@@ -117,7 +117,7 @@
                         </td>
                         <td>
                           <a class="btn bg-gradient-info" href="<?= base_url('admin/data/order/view-order/' . $k['kd_order']) ?>">
-                            Lihat
+                            <i class="fas fa-eye"></i>
                           </a>
                         </td>
                       </tr>

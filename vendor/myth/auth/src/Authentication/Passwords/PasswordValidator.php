@@ -2,6 +2,7 @@
 
 namespace Myth\Auth\Authentication\Passwords;
 
+
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Exceptions\AuthException;

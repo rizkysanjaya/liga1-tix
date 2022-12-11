@@ -127,58 +127,70 @@
               </div>
             </div>
             <div class="card-body p-3 pb-0">
-              <table class="table align-items-center mb-2">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-
-                    <th class="text-secondary opacity-7"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php foreach ($tiket as $t) : ?>
+              <?php if (!isset($tiket)) : ?>
+                <!-- jika data  tidak ada  -->
+                <div class="alert alert-warning" role="alert">
+                  <h4 class="alert-heading">Belum ada tiket</h4>
+                  <p>Maaf, data yang anda cari tidak ditemukan.</p>
+                  <hr>
+                </div>
+              <?php else : ?>
+                <table class="table align-items-center mb-2">
+                  <thead>
                     <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <a href="<?= base_url('assets/img/qrcode/' . $t->qrcode) ?>" class="" title="Download QRcode" download>
-                              <img src="<?= base_url('assets/img/qrcode/' . $t->qrcode) ?>" class="avatar avatar-sm me-3" alt="user1" />
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+                    <?php foreach ($tiket as $t) : ?>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div>
+                              <a href="<?= base_url('assets/img/qrcode/' . $t->qrcode) ?>" class="" title="Download QRcode" download>
+                                <img src="<?= base_url('assets/img/qrcode/' . $t->qrcode) ?>" class="avatar avatar-sm me-3" alt="user1" />
+                              </a>
+
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm"><?= $t->kd_order ?></h6>
+                              <p class="text-xs text-secondary mb-0">
+                                <?= $t->tgl_order ?>
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <?php if ($t->status == '1') { ?>
+                            <span class="badge badge-sm bg-gradient-secondary">Pending</span>
+                          <?php } else { ?>
+                            <span class="badge badge-sm bg-gradient-success">Lunas</span>
+                          <?php } ?>
+                        </td>
+                        <td class="align-middle">
+                          <?php if ($t->status == '1') { ?>
+                            <a href="<?php echo base_url('user/payment/' . $t->kd_order) ?>" class="btn btn-primary">Cek Pembayaran</a>
+                          <?php } else { ?>
+                            <a href="<?php echo base_url('assets/etiket/' . $t->kd_order) ?>" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" data-toggle="tooltip" download>
+                              <i class="fas fa-file-pdf text-lg me-1"></i> PDF
                             </a>
 
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?= $t->kd_order ?></h6>
-                            <p class="text-xs text-secondary mb-0">
-                              <?= $t->tgl_order ?>
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="align-middle text-center text-sm">
-                        <?php if ($t->status == '1') { ?>
-                          <span class="badge badge-sm bg-gradient-secondary">Pending</span>
-                        <?php } else { ?>
-                          <span class="badge badge-sm bg-gradient-success">Lunas</span>
-                        <?php } ?>
-                      </td>
-                      <td class="align-middle">
-                        <?php if ($t->status == '1') { ?>
-                          <a href="<?php echo base_url('user/payment/' . $t->kd_order) ?>" class="btn btn-primary">Cek Pembayaran</a>
-                        <?php } else { ?>
-                          <a href="<?php echo base_url('assets/etiket/' . $t->kd_order) ?>" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" data-toggle="tooltip" download>
-                            <i class="fas fa-file-pdf text-lg me-1"></i> PDF
-                          </a>
+                          <?php } ?>
 
-                        <?php } ?>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
 
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
 
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -197,8 +209,8 @@
                 © <script>
                   document.write(new Date().getFullYear())
                 </script>,
-                made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Liga1-Tix</a>
+
+                <a class="font-weight-bold" target="">Liga1-Tix</a>
                 for a better web.
               </div>
             </div>

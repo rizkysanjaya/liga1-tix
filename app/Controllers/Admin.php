@@ -134,61 +134,6 @@ class Admin extends BaseController
         return redirect()->to('admin/profile/' . $id);
     }
 
-    //user
-    // public function userlist()
-    // {
-    //     $data['users'] = $this->user->findAll();
-
-    //     return view('admin/data/user', $data);
-    // }
-
-    // public function adduser()
-    // {
-    //     return view('admin/data/create/add-user');
-
-    //     $users = model(User::class);
-
-    //     // Validate basics first since some password rules rely on these fields
-    //     $rules = config('Validation')->registrationRules ?? [
-    //         'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
-    //         'email'    => 'required|valid_email|is_unique[users.email]',
-    //     ];
-
-    //     if (!$this->validate($rules)) {
-    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    //     }
-
-    //     // Validate passwords since they can only be validated properly here
-    //     $rules = [
-    //         'password'     => 'required|strong_password',
-    //         'pass_confirm' => 'required|matches[password]',
-    //     ];
-
-    //     if (!$this->validate($rules)) {
-    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    //     }
-
-    //     // Save the user
-    //     $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
-    //     $user              = new User($this->request->getPost($allowedPostFields));
-
-    //     $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
-
-    //     // Ensure default group gets assigned if set
-    //     if (!empty($this->config->defaultUserGroup)) {
-    //         $users = $users->withGroup($this->config->defaultUserGroup);
-    //     }
-
-    //     if (!$users->save($user)) {
-    //         return redirect()->back()->withInput()->with('errors', $users->errors());
-    //     }
-
-    //     // Success!
-    //     // return redirect('admin/data/user', $data)->with('message', lang('Auth.registerSuccess'));
-    //     // return view;
-
-    // }
-
 
 
 
@@ -368,9 +313,14 @@ class Admin extends BaseController
 
 
 
+
+
+
     //match
     public function matchlist()
     {
+
+
         $data['pertandingans'] = $this->pertandingan->findAll();
         return view('admin/data/match', $data);
     }
@@ -385,6 +335,7 @@ class Admin extends BaseController
     public function savepertandingan()
     {
         $getKode = model(Getkode::class);
+        $this->team = new Team();
 
         if (!$this->validate([
             'kd_team1' => [
@@ -472,10 +423,25 @@ class Admin extends BaseController
             $file->move('assets/img/banner', $imageName);
         }
 
+        $kd_team1 = $this->request->getVar('kd_team1');
+        $kd_team2 = $this->request->getVar('kd_team2');
+
+        $team1Items = $this->team->where('kd_team', $kd_team1)->first();
+        $team1Name = $team1Items->nama_team;
+        $team1Logo = $team1Items->logo;
+
+        $team2Items = $this->team->where('kd_team', $kd_team2)->first();
+        $team2Name = $team2Items->nama_team;
+        $team2logo = $team2Items->logo;
+
         $data = [
             'kd_pertandingan' => $getKode->get_kdpertandingan(),
-            'kd_team1' => $this->request->getVar('kd_team1'),
-            'kd_team2' => $this->request->getVar('kd_team2'),
+            'kd_team1' => $kd_team1,
+            'kd_team2' => $kd_team2,
+            'nama_team1' => $team1Name,
+            'nama_team2' => $team2Name,
+            'logo_team1' => $team1Logo,
+            'logo_team2' => $team2logo,
             'tanggal' => $this->request->getVar('tanggal'),
             'waktu' => $this->request->getVar('waktu'),
             'banner_image' => $imageName,
@@ -607,6 +573,17 @@ class Admin extends BaseController
         $matchItem = $this->pertandingan->find($id);
         $oldImage = $matchItem->banner_image;
 
+        $kd_team1 = $this->request->getVar('kd_team1');
+        $kd_team2 = $this->request->getVar('kd_team2');
+
+        $team1Items = $this->team->where('kd_team', $kd_team1)->first();
+        $team1Name = $team1Items->nama_team;
+        $team1Logo = $team1Items->logo;
+
+        $team2Items = $this->team->where('kd_team', $kd_team2)->first();
+        $team2Name = $team2Items->nama_team;
+        $team2logo = $team2Items->logo;
+
         if ($file->isValid() && !$file->hasMoved()) {
             if (file_exists('assets/img/banner/' . $oldImage)) {
                 unlink('assets/img/banner/' . $oldImage);
@@ -615,6 +592,10 @@ class Admin extends BaseController
                 $data = [
                     'kd_team1' => $this->request->getVar('kd_team1'),
                     'kd_team2' => $this->request->getVar('kd_team2'),
+                    'nama_team1' => $team1Name,
+                    'nama_team2' => $team2Name,
+                    'logo_team1' => $team1Logo,
+                    'logo_team2' => $team2logo,
                     'tanggal' => $this->request->getVar('tanggal'),
                     'waktu' => $this->request->getVar('waktu'),
                     'banner_image' => $imageName,
@@ -633,6 +614,10 @@ class Admin extends BaseController
             $data = [
                 'kd_team1' => $this->request->getVar('kd_team1'),
                 'kd_team2' => $this->request->getVar('kd_team2'),
+                'nama_team1' => $team1Name,
+                'nama_team2' => $team2Name,
+                'logo_team1' => $team1Logo,
+                'logo_team2' => $team2logo,
                 'tanggal' => $this->request->getVar('tanggal'),
                 'waktu' => $this->request->getVar('waktu'),
                 'kd_stadion' => $this->request->getVar('kd_stadion'),
@@ -836,8 +821,8 @@ class Admin extends BaseController
         $query = $db->query("SELECT t.kd_order, t.kd_tiket, t.nama, t.harga, o.kd_pertandingan, o.jml_tiket, o.tgl_order FROM tiket as t INNER JOIN orders as o ON t.kd_order=o.kd_order INNER JOIN pertandingans as p ON o.kd_pertandingan=p.kd_pertandingan WHERE t.kd_order = '$id'")->getResultArray();
         $data['title'] = 'Detail Tiket';
         if ($query == NULL) {
-            session()->setFlashdata('message', 'Tidak Ada Tiket');
-            return view('admin/data/view-tiket/', $id);
+            session()->setFlashdata('message', 'Tidak Ada Kiriman Konfirmasi');
+            return redirect()->back();
         } else {
             $data['tiket'] = $query;
             return view('admin/data/view-tiket', $data);

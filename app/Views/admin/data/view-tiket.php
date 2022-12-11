@@ -172,12 +172,12 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-6">
-                        <p>Kode Order &nbsp;:&nbsp; <b><?= $tiket['kd_order']; ?></b></p>
-                        <p>Nama Pembeli &nbsp;:&nbsp; <b><?= $tiket['nama']; ?></b></p>
-                        <p>Harga &nbsp;:&nbsp; <b><?= $tiket['harga']; ?></b></p>
-                        <p>Kode Pertandingan &nbsp;:&nbsp; <b><?= $tiket['kd_pertandingan'] ?></b></p>
-                        <p>Jumlah Tiket &nbsp;:&nbsp; <b><?= $tiket['jml_tiket'] ?></b></p>
-                        <p>Tanggal Order &nbsp;:&nbsp; <b><?= $tiket['tgl_order'] ?></b></p>
+                        <p>Kode Order &nbsp;:&nbsp; <b><?= $tiket[0]['kd_order']; ?></b></p>
+                        <p>Nama Pembeli &nbsp;:&nbsp; <b><?= $tiket[0]['nama']; ?></b></p>
+                        <p>Harga &nbsp;:&nbsp; <b>Rp <?= number_format($tiket[0]['harga'], 0, ',', '.'); ?>,-</b></p>
+                        <p>Kode Pertandingan &nbsp;:&nbsp; <b><?= $tiket[0]['kd_pertandingan'] ?></b></p>
+                        <p>Jumlah Tiket &nbsp;:&nbsp; <b><?= $tiket[0]['jml_tiket'] ?></b></p>
+                        <p>Tanggal Order &nbsp;:&nbsp; <b><?= $tiket[0]['tgl_order'] ?></b></p>
 
                       </div>
                       <div class="col-sm-6">

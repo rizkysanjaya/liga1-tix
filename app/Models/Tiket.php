@@ -14,7 +14,7 @@ class Tiket extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kd_tiket', 'kd_order', 'kd_konfirm', 'kd_bank', 'nama', 'email', 'no_hp', 'jml_tiket', 'total_harga', 'status'];
+    protected $allowedFields    = ['kd_tiket', 'kd_order', 'nama', 'email', 'harga', 'status', 'created_at'];
 
     // Dates
     protected $useTimestamps = false;
