@@ -34,10 +34,37 @@
                 <!-- Default Card Example -->
                 <div class="card mb-5">
                     <div class="card-header">
-                        <i class="fa fa-list-alt"></i> Daftar Match
-                        <a href="<?php echo base_url('user/landpage') ?>" class="btn btn-primary ml-10 justify-content-end">Kembali </a>
+                        <i class="fa fa-list-alt"></i> Daftar Pertandingan
+                        <div class="mt-2">
+                            <a href="<?php echo base_url('user/landpage') ?>" class="btn btn-primary ml-10 justify-content-end">Kembali </a>
+                        </div>
                     </div>
                     <div class="card-body">
+                        <!-- Search Form with Sort Dropdown -->
+                        <div class="row">
+                            <div class="col-md-9">
+                                <form action="<?= base_url('user/matchlist') ?>" method="post">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Cari Pertandingan" name="keyword" autocomplete="off" autofocus style="height: 43px">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-3">
+                                <form action="<?= base_url('user/matchlist') ?>" method="post">
+                                    <div class="input-group mb-3">
+                                        <select class="form-select" name="sort" id="sort" style="height: 43px">
+                                            <option value="asc">Terbaru</option>
+                                            <option value="desc">Terlama</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-sort"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
 
                         <!-- jika data tidak ada : -->
                         <?php if (!isset($pertandingans)) : ?>
@@ -54,7 +81,7 @@
                                         <img class="border-radius-lg w-100" src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" alt="Image placeholder">
                                         <!-- List group -->
                                         <ul class="list-group list-group-flush mt-2">
-                                            <li class="list-group-item">
+                                            <li class="list-group-item text-center">
                                                 <h4 class="card-title mb-3"><?= nama_hari($pertandingan->tanggal) . ",  " . tgl_indo($pertandingan->tanggal) ?></h4>
                                                 <span class="badge badge-sm bg-gradient-warning card-title mb-3">
                                                     <?= " pukul" . $pertandingan->waktu ?>
@@ -64,7 +91,7 @@
                                         </ul>
                                     </div>
                                     <!-- Card body -->
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <h3 class="card-title mb-3"><?= $pertandingan->nama_team1 . ' VS ' .
                                                                         $pertandingan->nama_team2 ?></h3>
 
@@ -78,7 +105,6 @@
 
                         <?php endif; ?>
                         <br>
-
 
                     </div>
                 </div>
