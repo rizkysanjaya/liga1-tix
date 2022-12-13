@@ -34,9 +34,12 @@
                 <!-- Default Card Example -->
                 <div class="card mb-5">
                     <div class="card-header">
+                        <div class="row mx-2 justify-content-between">
+                        <div class=col-md-4>
                         <i class="fa fa-list-alt"></i> Daftar Pertandingan
-                        <div class="mt-2">
-                            <a href="<?php echo base_url('user/landpage') ?>" class="btn bg-gradient-primary ml-10 justify-content-end">Kembali </a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="<?php echo base_url('user/landpage') ?>" class="btn bg-gradient-primary w-100">Kembali </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -100,8 +103,6 @@
                             </div>
                         <?php endif; ?>
                         <br>
-
-                        <!-- Pagination, kalau bisa -->
 
                     </div>
                 </div>
