@@ -71,9 +71,15 @@
                             </div>
 
                         <?php else : ?>
-                            <div class="row justify-content-around">
-                            <?php foreach ($pertandingans as $pertandingan) : ?>
-                                <div class="col-md-6">
+                            <?php 
+                            $numCols = 2;
+                            $rowCount = 0;
+                            $bootstrapColWidth = 12 / $numCols;
+                            foreach ($pertandingans as $pertandingan){
+                            if ($rowCount % $numCols == 0) { ?>
+                                <div class="row justify-content-around">
+                            <?php } $rowCount++; ?>
+                                <div class="col-md-<?php echo $bootstrapColWidth; ?>">
                                     <!-- Card image -->
                                     <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
                                         <img class="border-radius-lg w-100" src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" alt="Image placeholder">
@@ -82,7 +88,7 @@
                                             <li class="list-group-item text-center">
                                                 <h4 class="card-title mb-3"><?= nama_hari($pertandingan->tanggal) . ",  " . tgl_indo($pertandingan->tanggal) ?></h4>
                                                 <span class="badge badge-sm bg-gradient-warning card-title mb-3">
-                                                    <?= " pukul" . $pertandingan->waktu ?>
+                                                    <?= "Pukul " . $pertandingan->waktu ?>
                                                 </span>
                                             </li>
 
@@ -98,9 +104,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <hr>
-                            <?php endforeach; ?>
-                            </div>
+                            <?php if ($rowCount % $numCols == 0) { ?>
+                                </div> <?php } } ?>
                         <?php endif; ?>
                         <br>
 
