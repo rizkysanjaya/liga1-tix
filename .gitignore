@@ -138,3 +138,4 @@ vendor/composer/autoload_namespaces.php
 vendor/composer/autoload_files.php
 vendor/composer/autoload_classmap.php
 vendor/autoload.php
+vendor/composer/installed.php

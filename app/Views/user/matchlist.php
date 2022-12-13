@@ -36,7 +36,7 @@
                     <div class="card-header">
                         <i class="fa fa-list-alt"></i> Daftar Pertandingan
                         <div class="mt-2">
-                            <a href="<?php echo base_url('user/landpage') ?>" class="btn btn-primary ml-10 justify-content-end">Kembali </a>
+                            <a href="<?php echo base_url('user/landpage') ?>" class="btn bg-gradient-primary ml-10 justify-content-end">Kembali </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -45,26 +45,21 @@
                             <div class="col-md-9">
                                 <form action="<?= base_url('user/matchlist') ?>" method="post">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Cari Pertandingan" name="keyword" autocomplete="off" autofocus style="height: 43px">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
-                                        </div>
+                                        <input type="text" class="form-control" placeholder="Cari Pertandingan" name="keyword" autocomplete="off" autofocus style="height: 40px">
+                                        <button class="btn bg-gradient-secondary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
-                                </form>
                             </div>
                             <div class="col-md-3">
-                                <form action="<?= base_url('user/matchlist') ?>" method="post">
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" name="sort" id="sort" style="height: 43px">
-                                            <option value="asc">Terbaru</option>
-                                            <option value="desc">Terlama</option>
-                                        </select>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-sort"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <div class="input-group mb-3">
+                                    <select class="form-select" id="inputGroupSelect02" name="sort">
+                                        <option selected>Urutkan</option>
+                                        <option value="asc">Terbaru</option>
+                                        <option value="desc">Terlama</option>
+                                    </select>
+                                </div>
                             </div>
+                            </form>
+                        </div>
 
                         <!-- jika data tidak ada : -->
                         <?php if (!isset($pertandingans)) : ?>
@@ -73,9 +68,9 @@
                             </div>
 
                         <?php else : ?>
+                            <div class="row justify-content-around">
                             <?php foreach ($pertandingans as $pertandingan) : ?>
-
-                                <div class="card">
+                                <div class="col-md-6">
                                     <!-- Card image -->
                                     <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
                                         <img class="border-radius-lg w-100" src="<?= base_url(); ?>/assets/img/banner/<?= $pertandingan->banner_image ?>" alt="Image placeholder">
@@ -102,14 +97,18 @@
                                 </div>
                                 <hr>
                             <?php endforeach; ?>
-
+                            </div>
                         <?php endif; ?>
                         <br>
+
+                        <!-- Pagination, kalau bisa -->
 
                     </div>
                 </div>
         </main>
     </div>
+
+    <!-- Footer -->
     <footer class="footer pt-3  ">
         <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
