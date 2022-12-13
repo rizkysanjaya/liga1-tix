@@ -68,11 +68,11 @@
             <div class="card-body px-0 pt-0 pb-2">
 
               <div class="table-responsive p-md-3">
-                <table class="table align-items-center mb-0" id="dataTable" style="table-layout:fixed; word-wrap:break-all;">
+                <table class="table align-items-center mb-0" id="dataTable" style="table-layout:fixed; word-wrap:break-word;">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Team Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 col-2">Team Name</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 col-5">Deskripsi</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kota</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
@@ -154,11 +154,7 @@
             sLast: '<i class="fa fa-step-forward"></i>'
           }
         },
-        columnDefs: [{
-          width: 200,
-          targets: 0
-        }],
-        fixedColumns: true
+
 
       });
     });
