@@ -69,24 +69,41 @@
     <div class="col-md-6 px-2">
       <div class="card">
         <div class="card-header">
-          <h5 class="title">Liga1-Tix</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-3">
-
-                <a href="<?= base_url('user/matchlist') ?>" class="btn bg-gradient-primary">Cari Tiket</a>
-
-
+          <!-- banner carousel design -->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="<?= base_url(); ?>/assets/img/banner/Gambar1.png" class="d-block w-100" alt="...">
               </div>
-              <div class="col-md-6">
-                some teks adakskhdofjjwado asoidjiowd asmdwjkqh
+              <div class="carousel-item">
+                <img src="<?= base_url(); ?>/assets/img/banner/Gambar2.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="<?= base_url(); ?>/assets/img/banner/Gambar5.png" class="d-block w-100" alt="...">
               </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="m-2 text-center">
+            <h4 class="title">Selamat Datang di Liga1-Tix</h4>
+            <a href="<?= base_url('user/matchlist') ?>" class="btn bg-gradient-primary">Cari Tiket</a>
           </div>
         </div>
 
         <div class="card-header">
-          <h5 class="title">Live Match</h5>
+          <h5 class="title text-center">Live Match</h5>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
@@ -114,7 +131,7 @@
         </div>
 
         <div class="card-header">
-          <h5 class="title">Match History</h5>
+          <h5 class="title text-center">Match History</h5>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
@@ -165,9 +182,9 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
 
                   <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team1) ?>" alt="" width="30px" height="30px">
-                  <a href=""><?= $up->nama_team1; ?></a>
+                  <p style="font-size:12px;"><?= $up->nama_team1; ?></p>
                   <span class="badge bg-primary rounded-pill">VS</span>
-                  <a href=""><?= $up->nama_team2; ?></a>
+                  <p style="font-size:12px;"><?= $up->nama_team2; ?></p>
                   <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team2) ?>" alt="" width="30px" height="30px">
 
 

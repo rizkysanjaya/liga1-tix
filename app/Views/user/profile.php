@@ -211,7 +211,7 @@
                 </script>,
 
                 <a class="font-weight-bold" target="">Liga1-Tix</a>
-                for a better web.
+
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form class="p-md-4" action="<?= base_url('admin/profile/update_profile/' . user()->id) ?>" method="post" enctype="multipart/form-data">
+          <form class="p-md-4" action="<?= base_url('user/profile/update_profile/' . user()->id) ?>" method="post" enctype="multipart/form-data">
             <?= csrf_field(); ?>
             <div class="row">
               <div class="col-md-12">

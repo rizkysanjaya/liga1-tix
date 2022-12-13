@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+  <style>
+    table td {
+      word-wrap: break-word;
+      /* word-break: break-all; */
+      white-space: normal;
+    }
+  </style>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url(); ?>/assets/img/apple-icon.png">
@@ -29,6 +36,7 @@
   <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
          -->
+
 
 </head>
 
@@ -60,7 +68,7 @@
             <div class="card-body px-0 pt-0 pb-2">
 
               <div class="table-responsive p-md-3">
-                <table class="table align-items-center mb-0" id="dataTable" style="table-layout:auto">
+                <table class="table align-items-center mb-0" id="dataTable" style="table-layout:fixed; word-wrap:break-all;">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Team Name</th>
@@ -145,7 +153,13 @@
             sFirst: '<i class="fa fa-step-backward"></i>',
             sLast: '<i class="fa fa-step-forward"></i>'
           }
-        }
+        },
+        columnDefs: [{
+          width: 200,
+          targets: 0
+        }],
+        fixedColumns: true
+
       });
     });
   </script>

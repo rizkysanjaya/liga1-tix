@@ -40,10 +40,19 @@ class Tiket extends BaseController
     {
         $this->pertandingan = new Pertandingan();
 
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $data['pertandingans'] = $this->pertandingan->search($keyword);
+        } else {
+            $data['pertandingans'] = $this->pertandingan->where('status', '0')->findAll();
+        }
+
         $data['title'] = "Match List";
-        $data['pertandingans'] = $this->pertandingan->where('status', '0')->findAll();
+
         return view('user/matchlist', $data);
     }
+
+
 
 
     public function before_order($id)

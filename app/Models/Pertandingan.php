@@ -16,6 +16,13 @@ class Pertandingan extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['kd_pertandingan', 'kd_team1', 'kd_team2', 'nama_team1', 'nama_team2', 'logo_team1', 'logo_team2', 'kd_stadion', 'tanggal', 'waktu', 'banner_image', 'skor_team1', 'skor_team2', 'harga_tb_timur', 'harga_tb_barat', 'harga_tb_vip', 'harga_tb_vvip', 'status'];
 
+    //search
+    public function search($keyword)
+    {
+        $this->pertandingan = new Pertandingan();
+        return $this->pertandingan->where('status', '0')->like('nama_team1', $keyword)->orLike('nama_team2', $keyword)->findAll();
+    }
+
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

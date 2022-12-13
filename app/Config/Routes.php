@@ -112,10 +112,11 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
 $routes->group('', ['filter' => 'role:client,admin'], function ($routes) {
 
     $routes->get('user/profile/(:any)', 'User::index/$1');
+    $routes->add('user/profile/update_profile/(:any)', 'User::update_profile/$1');
     $routes->get('user/tiket', 'User::tiket');
     $routes->get('user/transaksi', 'User::transaksi');
     $routes->get('user/setting', 'User::setting');
-    $routes->get('user/matchlist', 'Tiket::index');
+    $routes->add('user/matchlist', 'Tiket::index');
     $routes->add('user/before-order/(:segment)', 'Tiket::before_order/$1');
     $routes->add('user/lanjut_order', 'Tiket::lanjut_order');
     $routes->add('user/order', 'Tiket::order');

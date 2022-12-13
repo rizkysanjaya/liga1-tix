@@ -105,6 +105,10 @@ class Admin extends BaseController
         $userItem = $this->user->find($id);
         $oldImage = $userItem->user_image;
 
+        //check if username and email is changed or not, it is not changed, then update without checking unique
+
+
+
         if ($file->isValid() && !$file->hasMoved()) {
             if (file_exists('assets/img/user_profile/' . $oldImage)) {
                 unlink('assets/img/user_profile/' . $oldImage);
@@ -128,7 +132,7 @@ class Admin extends BaseController
 
             ];
         }
-        $this->user->where('id' . $id)->set($data)->update();
+        $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
         return redirect()->to('admin/profile/' . $id);
