@@ -74,7 +74,7 @@
                                 $bootstrapColWidth = 12 / $numCols;
                                 foreach ($pertandingans as $pertandingan) {
                                     if ($rowCount % $numCols == 0) { ?>
-                                        <div class="row justify-content-around">
+                                        <div class="row justify-content-center">
                                         <?php }
                                     $rowCount++; ?>
                                         <div class="col-md-<?php echo $bootstrapColWidth; ?>">

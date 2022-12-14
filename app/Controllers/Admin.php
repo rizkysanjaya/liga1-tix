@@ -60,6 +60,7 @@ class Admin extends BaseController
 
     public function update_profile($id)
     {
+
         if (!$this->validate([
             'email' => [
                 'rules' => 'required|valid_email',
@@ -67,30 +68,32 @@ class Admin extends BaseController
                     'required' => 'Email harus diisi',
                     'valid_email' => 'Email tidak valid',
 
+
                 ]
             ],
             'username' => [
-                'rules' => 'required|is_unique[users.username,id,{id}]',
+                'rules' => 'max_length[12]|required',
                 'errors' => [
                     'required' => 'Username harus diisi',
+                    'max_length' => 'Username terlalu panjang (maksimal 12 karakter)'
                 ],
             ],
             'fullname' => [
-                'rules' => 'required',
+                'rules' => 'max_length[30]',
                 'errors' => [
-                    'required' => 'Nama Lengkap harus diisi',
+                    'max_length' => 'Nama terlalu panjang (maksimal 30 karakter)'
                 ],
             ],
             'bio' => [
-                'rules' => 'max_length[255]',
+                'rules' => 'max_length[500]',
                 'errors' => [
-                    'max_length' => 'Bio terlalu panjang'
+                    'max_length' => 'Bio terlalu panjang (maksimal 500 karakter)'
                 ]
             ],
             'user_image' => [
-                'rules' => 'uploaded[user_image]|max_dims[user_image,800,800]|mime_in[user_image,image/jpg,image/jpeg,image/png]|max_size[user_image,4096]',
+                'rules' => 'max_dims[user_image,800,800]|mime_in[user_image,image/jpg,image/jpeg,image/png]|max_size[user_image,4096]',
                 'errors' => [
-                    'uploaded' => 'Pilih gambar terlebih dahulu',
+
                     'mime_in' => 'File yang diupload bukan gambar',
                     'max_size' => 'Ukuran gambar terlalu besar, maksimal 4MB',
                     'max_dims' => 'Dimensi gambar terlalu besar, maksimal 800x800'
@@ -99,14 +102,11 @@ class Admin extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('admin/profile/' . $id)->withInput();
+            return redirect()->to('user/profile/' . $id)->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);
         $oldImage = $userItem->user_image;
-
-        //check if username and email is changed or not, it is not changed, then update without checking unique
-
 
 
         if ($file->isValid() && !$file->hasMoved()) {
@@ -114,28 +114,87 @@ class Admin extends BaseController
                 unlink('assets/img/user_profile/' . $oldImage);
                 $imageName = $file->getRandomName();
                 $file->move('assets/img/user_profile/', $imageName);
-                $data = [
-                    'email' => trim($this->request->getVar('email')),
-                    'username' => trim($this->request->getVar('username')),
-                    'fullname' => trim($this->request->getVar('fullname')),
-                    'bio' => trim($this->request->getVar('bio')),
-                    'user_image' => $imageName,
 
-                ];
+
+                if ($userItem->email == $this->request->getVar('email')) {
+                    //check username if same with old username, if yes then don't update username
+                    if ($userItem->username == $this->request->getVar('username')) {
+                        $data = [
+
+                            'fullname' => trim($this->request->getVar('fullname')),
+                            'bio' => trim($this->request->getVar('bio')),
+                            'user_image' => $imageName,
+                        ];
+                    } else {
+                        $data = [
+
+                            'fullname' => trim($this->request->getVar('fullname')),
+                            'bio' => trim($this->request->getVar('bio')),
+                            'user_image' => $imageName,
+                        ];
+                    }
+                } else {
+
+                    if ($userItem->username == $this->request->getVar('username')) {
+                        $data = [
+                            'email' => trim($this->request->getVar('email')),
+                            'fullname' => trim($this->request->getVar('fullname')),
+                            'bio' => trim($this->request->getVar('bio')),
+                            'user_image' => $imageName,
+
+                        ];
+                    } else {
+                        $data = [
+                            'email' => trim($this->request->getVar('email')),
+                            'username' => trim($this->request->getVar('username')),
+                            'fullname' => trim($this->request->getVar('fullname')),
+                            'bio' => trim($this->request->getVar('bio')),
+                            'user_image' => $imageName,
+                        ];
+                    }
+                }
             }
         } else {
-            $data = [
-                'email' => trim($this->request->getVar('email')),
-                'username' => trim($this->request->getVar('username')),
-                'fullname' => trim($this->request->getVar('fullname')),
-                'bio' => trim($this->request->getVar('bio')),
+            if ($userItem->email == $this->request->getVar('email')) {
+                //check username if same with old username, if yes then don't update username
+                if ($userItem->username == $this->request->getVar('username')) {
+                    $data = [
 
-            ];
+                        'fullname' => trim($this->request->getVar('fullname')),
+                        'bio' => trim($this->request->getVar('bio')),
+
+                    ];
+                } else {
+                    $data = [
+                        'username' => trim($this->request->getVar('username')),
+                        'fullname' => trim($this->request->getVar('fullname')),
+                        'bio' => trim($this->request->getVar('bio')),
+
+                    ];
+                }
+            } else {
+
+                if ($userItem->username == $this->request->getVar('username')) {
+                    $data = [
+                        'email' => trim($this->request->getVar('email')),
+                        'fullname' => trim($this->request->getVar('fullname')),
+                        'bio' => trim($this->request->getVar('bio')),
+                    ];
+                } else {
+                    $data = [
+                        'email' => trim($this->request->getVar('email')),
+                        'username' => trim($this->request->getVar('username')),
+                        'fullname' => trim($this->request->getVar('fullname')),
+                        'bio' => trim($this->request->getVar('bio')),
+
+                    ];
+                }
+            }
         }
         $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
-        return redirect()->to('admin/profile/' . $id);
+        return redirect()->to('user/profile/' . $id);
     }
 
 

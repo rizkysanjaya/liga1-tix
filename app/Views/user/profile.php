@@ -104,7 +104,6 @@
                   </p>
                 </li>
                 <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?= user()->fullname ?> </li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; <?= user()->fullname ?> </li>
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; <?= user()->email ?></li>
 
 
