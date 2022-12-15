@@ -1,5 +1,21 @@
 # Liga1-Tix
 
+Liga1-Tix adalah aplikasi Pemesanan Tiket Bola Liga 1 Indonesia
+Fitur:
+Pelanggan :
+- Melihat informasi pertandingan Liga1
+- Memesan tiket pertandingan
+- Login & Register
+- Reset Password
+- Mencetak tiket
+- Set Profile
+
+Admin :
+- Mengelola data team. pertandingan, stadion, order, konfirmasi order, tiket
+- Konfirmasi status order
+- Cetak tiket pembeli
+- Kirim tiket via email ke pembeli 
+
 # Install :
 
 Masuk ke htdocs, buka terminal, masukan command :
@@ -14,11 +30,11 @@ Import database dengan command :
 
 Setting .env sesuaikan
 
-Run app dengan :
+Jalankan app dengan buka terminal dalam folder app menggunakan perintah :
 
 `php spark serve`
 
-Buka localhost:8080
+Buka browser localhost:8080
 
 # Development
 
