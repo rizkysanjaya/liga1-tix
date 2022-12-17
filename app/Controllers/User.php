@@ -84,7 +84,9 @@ class User extends BaseController
 
         if ($file->isValid() && !$file->hasMoved()) {
             if (file_exists('assets/img/user_profile/' . $oldImage)) {
-                unlink('assets/img/user_profile/' . $oldImage);
+                if ($oldImage != 'undraw_profile.svg') {
+                    unlink('assets/img/user_profile/' . $oldImage);
+                }
                 $imageName = $file->getRandomName();
                 $file->move('assets/img/user_profile/', $imageName);
 

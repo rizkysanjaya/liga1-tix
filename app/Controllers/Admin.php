@@ -111,7 +111,10 @@ class Admin extends BaseController
 
         if ($file->isValid() && !$file->hasMoved()) {
             if (file_exists('assets/img/user_profile/' . $oldImage)) {
-                unlink('assets/img/user_profile/' . $oldImage);
+                if ($oldImage != 'undraw_profile.svg') {
+                    unlink('assets/img/user_profile/' . $oldImage);
+                }
+
                 $imageName = $file->getRandomName();
                 $file->move('assets/img/user_profile/', $imageName);
 
@@ -194,7 +197,7 @@ class Admin extends BaseController
         $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
-        return redirect()->to('user/profile/' . $id);
+        return redirect()->to('admin/profile/' . $id);
     }
 
 
