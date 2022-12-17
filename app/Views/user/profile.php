@@ -175,7 +175,7 @@
                           <?php if ($t->status == '1') { ?>
                             <a href="<?php echo base_url('user/payment/' . $t->kd_order) ?>" class="btn btn-primary">Cek Pembayaran</a>
                           <?php } else { ?>
-                            <a href="<?php echo base_url('assets/etiket/' . $t->kd_order) ?>" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" data-toggle="tooltip" download>
+                            <a href="<?php echo base_url('user/etiket/download/' . $t->kd_order) ?>" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" data-toggle="tooltip">
                               <i class="fas fa-file-pdf text-lg me-1"></i> PDF
                             </a>
 

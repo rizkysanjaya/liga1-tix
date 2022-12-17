@@ -26,10 +26,7 @@ class User extends BaseController
         return view('user/profile', $data);
     }
 
-    public function download($id)
-    {
-        return $this->response->download('assets/etiket/' . $id . '.pdf', null);
-    }
+
 
     public function update_profile($id)
     {

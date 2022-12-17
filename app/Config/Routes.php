@@ -125,6 +125,7 @@ $routes->group('', ['filter' => 'role:client,admin'], function ($routes) {
     $routes->add('user/payment/(:any)', 'Tiket::payment/$1');
     $routes->add('user/konfirmasi/(:any)/(:any)', 'Tiket::konfirmasi/$1/$2');
     $routes->add('user/insertkonfirmasi', 'Tiket::insertkonfirmasi');
+    $routes->add('user/etiket/download/(:any)', 'Tiket::download/$1');
 });
 
 
