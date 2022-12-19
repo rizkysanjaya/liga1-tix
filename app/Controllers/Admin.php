@@ -365,9 +365,10 @@ class Admin extends BaseController
 
     public function delete_team($id)
     {
-        $team = $this->team->find($id);
-        if ($team->logo->hasFile() || $team->logo != 'default.png') {
-            unlink('assets/img/team_logo/' . $team->logo);
+        $teamItem = $this->team->find($id);
+        $oldImage = $teamItem->logo;
+        if (file_exists('assets/img/team_logo/' . $oldImage)) {
+            unlink('assets/img/team_logo/' . $oldImage);
         }
         $this->team->delete($id);
         session()->setFlashdata('message', 'Hapus Data Team Berhasil');
@@ -703,7 +704,7 @@ class Admin extends BaseController
         return redirect()->to('/admin/data/match');
     }
 
-    public function delete_pertandingan($id)
+    public function delete_match($id)
     {
         $matchItem = $this->pertandingan->find($id);
         $oldImage = $matchItem->banner_image;

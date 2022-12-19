@@ -102,7 +102,6 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
 
 
     //delete data
-    $routes->get('admin/data/user/delete/(:segment)', 'Admin::delete_user/$1');
     $routes->get('admin/data/match/delete/(:segment)', 'Admin::delete_match/$1');
     $routes->get('admin/data/team/delete/(:segment)', 'Admin::delete_team/$1');
     $routes->get('admin/data/stadion/delete/(:segment)', 'Admin::delete_stadion/$1');
