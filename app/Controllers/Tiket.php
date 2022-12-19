@@ -132,6 +132,29 @@ class Tiket extends BaseController
 
     public function gettiket()
     {
+        //currently no validation, still error with redirect
+        // if (!$this->validate([
+        //     'email' => [
+        //         'rules' => 'required|valid_email',
+        //         'errors' => [
+        //             'required' => 'Email harus diisi',
+        //             'valid_email' => 'Email tidak valid'
+        //         ]
+        //     ],
+        //     'no_tlp' => [
+        //         'rules' => 'required|numeric|min_length[10]|max_length[13]',
+        //         'errors' => [
+        //             'required' => 'No. Telepon harus diisi',
+        //             'numeric' => 'No. Telepon harus angka',
+        //             'min_length' => 'No. Telepon minimal 10 angka',
+        //             'max_length' => 'No. Telepon maksimal 13 angka'
+        //         ]
+        //     ]
+        // ])) {
+        //     $data['title'] = "Order Tiket";
+        //     session()->setFlashdata('error', $this->validator->listErrors());
+        //     return redirect()->to('user');
+        // }
 
         $getKode = model(Getkode::class);
         $this->order = new Order();

@@ -113,7 +113,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label for="team1">No. Telp</label>
-                                                    <input type="text" name="no_tlp" class="form-control <?= $validation->hasError('no_tlp') ? 'is-invalid' : null ?>" value="<?= old('no_tlp') ?>" required>
+                                                    <input type="number" name="no_tlp" class="form-control <?= $validation->hasError('no_tlp') ? 'is-invalid' : null ?>" value="<?= old('no_tlp') ?>" required>
 
                                                 </div>
 

@@ -57,6 +57,9 @@
                     <h5 class="mb-1"><?= $t->nama_team ?></h5>
                   </div>
                 </a>
+
+                <!-- disisi modal -->
+
               <?php endforeach; ?>
 
             <?php endif; ?>
@@ -221,6 +224,8 @@
     </div>
   </footer>
 
+  <!-- disini -->
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -240,5 +245,15 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.6"></script>
 </body>
+
+<!-- <script>
+  for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    const value = sessionStorage.getItem(key);
+    console.log(`${key}: ${value}`);
+  }
+</script> -->
+
+
 
 </html>

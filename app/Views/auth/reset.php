@@ -53,7 +53,7 @@
                   <!-- <span style="ml-5">
                   <img src="../assets/img/android-icon-96x96.png" class="navbar-brand-img h-30" alt="main_logo">
                   </span> -->
-                  <a href="<?= base_url('index.php') ?>">
+                  <a href="<?= base_url() ?>">
                     <h2 class="font-weight-bolder text-primary text-gradient">Liga1-Tix</h2>
                   </a>
                   <!-- <h6 class="font-weight-bolder text-primary text-gradient">Selamat datang</h6> -->
@@ -68,32 +68,32 @@
                     <?= csrf_field() ?>
 
                     <div class="mb-3">
-                        <label for="token" class="form-label">Token</label>
-                        <input type="text" class="form-control <?php if (session('errors.token')) : ?>is-invalid<?php endif ?>" name="token" placeholder="<?= lang('Auth.token') ?>" value="<?= old('token', $token ?? '') ?>">
-                        <div class="invalid-feedback">
-                            <?= session('errors.token') ?>
-                        </div>
+                      <label for="token" class="form-label">Token</label>
+                      <input type="text" class="form-control <?php if (session('errors.token')) : ?>is-invalid<?php endif ?>" name="token" placeholder="<?= lang('Auth.token') ?>" value="<?= old('token', $token ?? '') ?>">
+                      <div class="invalid-feedback">
+                        <?= session('errors.token') ?>
+                      </div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" aria-describedby="emailHelp" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>">
-                        <div class="invalid-feedback">
-                            <?= session('errors.email') ?>
-                        </div>
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" aria-describedby="emailHelp" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>">
+                      <div class="invalid-feedback">
+                        <?= session('errors.email') ?>
+                      </div>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" name="password">
-                        <div class="invalid-feedback">
-                            <?= session('errors.password') ?>
-                        </div>
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" name="password">
+                      <div class="invalid-feedback">
+                        <?= session('errors.password') ?>
+                      </div>
                     </div>
                     <div class="mb-3">
-                        <label for="pass_confirm" class="form-label">Konfirmasi Password</label>
-                        <input type="password" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" name="pass_confirm">
-                        <div class="invalid-feedback">
-                            <?= session('errors.pass_confirm') ?>
-                        </div>
+                      <label for="pass_confirm" class="form-label">Konfirmasi Password</label>
+                      <input type="password" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" name="pass_confirm">
+                      <div class="invalid-feedback">
+                        <?= session('errors.pass_confirm') ?>
+                      </div>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0">Reset Password</button>
@@ -101,7 +101,7 @@
                   </form>
                 </div>
               </div>
-            </div>      
+            </div>
             <div class="col-md-6">
               <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
                 <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n7" style="background-image:url('<?= base_url(); ?>/assets/img/curved-images/log-reg2.png')"></div>
@@ -114,22 +114,22 @@
   </main>
 
   <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <footer class="footer py-5">
-      <div class="container">
-        <div class="row">
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row">
 
-        </div>
-        <div class="row">
-          <div class="col-8 mx-auto text-center mt-1">
-            <p class="mb-0 text-secondary">
-              Copyright © <script>
-                document.write(new Date().getFullYear())
-              </script> Liga1-Tix.
-            </p>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-8 mx-auto text-center mt-1">
+          <p class="mb-0 text-secondary">
+            Copyright © <script>
+              document.write(new Date().getFullYear())
+            </script> Liga1-Tix.
+          </p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <!--   Core JS Files   -->
   <script src="<?= base_url(); ?>/assets/js/core/popper.min.js"></script>

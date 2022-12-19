@@ -53,7 +53,7 @@
                   <!-- <span style="ml-5">
                   <img src="../assets/img/android-icon-96x96.png" class="navbar-brand-img h-30" alt="main_logo">
                   </span> -->
-                  <a href="<?= base_url('index.php') ?>">
+                  <a href="<?= base_url() ?>">
                     <h2 class="font-weight-bolder text-primary text-gradient">Liga1-Tix</h2>
                   </a>
                   <!-- <h6 class="font-weight-bolder text-primary text-gradient">Selamat datang</h6> -->
@@ -99,22 +99,22 @@
   </main>
 
   <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <footer class="footer py-5">
-      <div class="container">
-        <div class="row">
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row">
 
-        </div>
-        <div class="row">
-          <div class="col-8 mx-auto text-center mt-1">
-            <p class="mb-0 text-secondary">
-              Copyright © <script>
-                document.write(new Date().getFullYear())
-              </script> Liga1-Tix.
-            </p>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-8 mx-auto text-center mt-1">
+          <p class="mb-0 text-secondary">
+            Copyright © <script>
+              document.write(new Date().getFullYear())
+            </script> Liga1-Tix.
+          </p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <!--   Core JS Files   -->
   <script src="<?= base_url(); ?>/assets/js/core/popper.min.js"></script>

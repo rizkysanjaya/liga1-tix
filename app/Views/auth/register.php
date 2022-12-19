@@ -52,7 +52,7 @@
                   <!-- <span style="ml-5">
                   <img src="../assets/img/android-icon-96x96.png" class="navbar-brand-img h-30" alt="main_logo">
                   </span> -->
-                  <a href="<?= base_url('index.php') ?>">
+                  <a href="<?= base_url() ?>">
                     <h2 class="font-weight-bolder text-primary text-gradient">Liga1-Tix</h2>
                   </a>
                   <!-- <h6 class="font-weight-bolder text-primary text-gradient">Selamat datang</h6> -->
