@@ -30,7 +30,7 @@
             <?php if (logged_in()) : ?>
 
               <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="<?= base_url('user/profile/' . user()->id) ?>">
+                <a class="dropdown-item border-radius-md" href="<?= base_url('user/profile') ?>">
                   <div class="d-flex py-1">
                     <div class="my-auto">
                       <img src="<?= base_url('assets/img/user_profile/' . user()->user_image) ?>" class="avatar avatar-sm  me-3 ">

@@ -267,7 +267,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="customFile">Upload Users Profile Image</label>
+                  <label for="customFile">Upload Users Profile Image (800x800)</label>
                   <input type="file" class="form-control <?= $validation->hasError('user_image') ? 'is-invalid' : null ?>" name="user_image" placeholder="">
                 </div>
               </div>

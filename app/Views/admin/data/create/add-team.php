@@ -84,7 +84,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="customFile">Upload Team Logo</label>
+                      <label for="customFile">Upload Team Logo (256x256)</label>
                       <input type="file" class="form-control <?= $validation->hasError('logo') ? 'is-invalid' : null ?>" name="logo">
 
                     </div>
