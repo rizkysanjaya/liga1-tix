@@ -17,7 +17,7 @@ class User extends BaseController
         $this->user = new ModelsUser();
     }
 
-    public function index($id)
+    public function index()
     {
         $this->order = new Order();
 

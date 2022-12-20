@@ -29,9 +29,6 @@ class Tiket extends BaseController
     {
 
         helper('tglindo_helper');
-        // $this->tiket = new Tiket();
-        // $this->bank = new Bank();
-        // $this->order = new Order();
 
         date_default_timezone_set("Asia/Jakarta");
     }
@@ -43,6 +40,7 @@ class Tiket extends BaseController
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $data['pertandingans'] = $this->pertandingan->search($keyword);
+            session()->setFlashdata('info', 'Hasil pencarian untuk keyword "' . $keyword . '" tidak ditemukan!');
         } else {
             $data['pertandingans'] = $this->pertandingan->where('status', '0')->findAll();
         }
@@ -121,10 +119,6 @@ class Tiket extends BaseController
         $data['tribun'] = $tribun;
         $data['tiket'] = $jmltiket;
         $data['harga'] = $harga;
-
-        // print_r($kdpert);
-        // print_r($tribun);
-        // print_r($jmltiket);
 
         return view('user/order', $data);
     }
@@ -227,14 +221,6 @@ class Tiket extends BaseController
         return redirect()->to(base_url('user/checkout/' . $kd_order));
     }
 
-    // public function payment($id = '')
-    // {
-
-    //     $sqlcek = $this->db->query("SELECT * FROM orders LEFT JOIN users on orders.id_user = users.id LEFT JOIN pertandingans on orders.kd_pertandingan = pertandingans.kd_pertandingan LEFT JOIN bank on orders.kd_bank = bank.kd_bank WHERE kd_order ='$id'")->result_array();
-    //     // $data['count'] = count($sqlcek);
-    //     $data['tiket'] = $sqlcek;
-    //     return view('user/payment', $data);
-    // }
 
     public function checkout($value = '')
     {

@@ -79,7 +79,7 @@
                           </div>
                         </td>
                         <td>
-                          <!-- css table belum rapih yang deskripsi-->
+
                           <div class="d-flex px-2 py-1">
                             <p class="text-xs font-weight-bold mb-0">
                               <?= $pertandingan->tanggal  ?>

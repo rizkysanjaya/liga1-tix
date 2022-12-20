@@ -11,9 +11,7 @@ use App\Models\Getkode;
 use App\Models\Tiket;
 use App\Models\Order;
 use App\Models\Konfirm;
-use CodeIgniter\Session\Session;
-use Myth\Auth\Config\Auth as AuthConfig;
-// use Myth\Auth\Entities\User;
+
 
 class Admin extends BaseController
 {
@@ -27,7 +25,11 @@ class Admin extends BaseController
     protected $konfirm;
 
 
-
+    /*
+ * --------------------------------------------------------------------
+ * Constructor
+ * --------------------------------------------------------------------
+ */
     function __construct()
     {
         $this->user = new User();
@@ -42,12 +44,22 @@ class Admin extends BaseController
         date_default_timezone_set("Asia/Jakarta");
     }
 
-    //dashboard
+    /*
+ * --------------------------------------------------------------------
+ * Dashboard
+ * --------------------------------------------------------------------
+ */
     public function index()
     {
         return view('admin/dashboard');
     }
 
+
+    /*
+ * --------------------------------------------------------------------
+ * Profile
+ * --------------------------------------------------------------------
+ */
     //profile
     public function profile($id)
     {
@@ -203,8 +215,11 @@ class Admin extends BaseController
 
 
 
-
-    //team
+    /*
+ * --------------------------------------------------------------------
+ * Team
+ * --------------------------------------------------------------------
+ */
     public function teamlist()
     {
         $data['teams'] = $this->team->findAll();
@@ -378,12 +393,11 @@ class Admin extends BaseController
 
 
 
-
-
-
-
-
-    //match
+    /*
+ * --------------------------------------------------------------------
+ * Match
+ * --------------------------------------------------------------------
+ */
     public function matchlist()
     {
 
@@ -716,10 +730,11 @@ class Admin extends BaseController
         return redirect()->to('/admin/data/match');
     }
 
-
-    //stadion
-
-
+    /*
+ * --------------------------------------------------------------------
+ * Stadion
+ * --------------------------------------------------------------------
+ */
     public function stadionlist()
     {
         $data['stadions'] = $this->stadion->findAll();
@@ -837,15 +852,22 @@ class Admin extends BaseController
         return redirect()->to('/admin/data/stadion');
     }
 
-
-
-    //transaksi
+    /*
+ * --------------------------------------------------------------------
+ * Transaksi
+ * --------------------------------------------------------------------
+ */
     public function transaksilist()
     {
         return view('admin/data/transaksi');
     }
 
-    //konfirmasi
+
+    /*
+ * --------------------------------------------------------------------
+ * Konfirmasi
+ * --------------------------------------------------------------------
+ */
     public function konfirmasilist()
     {
         $db = \Config\Database::connect();
@@ -871,7 +893,11 @@ class Admin extends BaseController
         }
     }
 
-    //ticket
+    /*
+ * --------------------------------------------------------------------
+ * Tiket
+ * --------------------------------------------------------------------
+ */
     public function tiketlist()
     {
         $db = \Config\Database::connect();
@@ -896,7 +922,12 @@ class Admin extends BaseController
         }
     }
 
-    //order
+
+    /*
+ * --------------------------------------------------------------------
+ * Order
+ * --------------------------------------------------------------------
+ */
     public function orderlist()
     {
         $db = \Config\Database::connect();
