@@ -51,7 +51,7 @@
             <?php else : ?>
               <!-- jika data  ada : -->
               <?php foreach ($team as $t) : ?>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#viewModal<?= $t->kd_team ?>">
                   <div class="d-flex w-100 justify-content-between">
                     <img src="/assets/img/team_logo/<?= $t->logo ?>" alt="<?= $t->nama_team ?>" width="30" height="30">
                     <h5 class="mb-1"><?= $t->nama_team ?></h5>
@@ -59,6 +59,30 @@
                 </a>
 
                 <!-- disisi modal -->
+                <div class="modal fade text-left" id="viewModal<?= $t->kd_team ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Team Profile</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <i data-feather="x"></i>
+                        </button>
+                      </div>
+                      <div class="modal-body text-center">
+                        <img src="/assets/img/team_logo/<?= $t->logo ?>" alt="<?= $t->nama_team ?>" width="100" height="100">
+                        <h5 class="mb-1"><?= $t->nama_team ?></h5>
+                        <p class="card-text"><?= $t->deskripsi ?></p>
+                        <p class="card-text">Domisili: <b><?= $t->kota ?></b></p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                          <i class="bx bx-x d-block d-sm-none"></i>
+                          <span class="d-none d-sm-block">Close</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               <?php endforeach; ?>
 
@@ -224,7 +248,8 @@
     </div>
   </footer>
 
-  <!-- disini -->
+  <!-- modal team -->
+  
 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
