@@ -114,7 +114,7 @@ class Admin extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user/profile/' . $id)->withInput();
+            return redirect()->to('user/profile')->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);
@@ -209,7 +209,7 @@ class Admin extends BaseController
         $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
-        return redirect()->to('admin/profile/' . $id);
+        return redirect()->to('admin/profile');
     }
 
 
