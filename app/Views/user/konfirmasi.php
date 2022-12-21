@@ -32,22 +32,20 @@
             <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-9">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
-                        <?php if (!empty(session()->getFlashdata('message'))) : ?>
-                            <div class="alert alert-danger alert-dismissible fade show m-md-4" role="alert">
-
-                                <span class="alert-text"><strong>Periksa Entrian Form</strong> </span>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <?php echo session()->getFlashdata('message'); ?>
-
-                            </div>
-                        <?php endif; ?>
                         <div class="col-lg-8">
                             <!-- Default Card Example -->
                             <div class="card mb-5">
                                 <div class="card-header">
-                                    Konfirmasi Pembayaran
+                                    <h5 class="text-center">Konfirmasi Pembayaran</h5>
+                                    <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                                        <div class="alert alert-danger alert-dismissible fade show m-md-4" role="alert">
+                                            <span class="alert-text"><strong>Periksa Entrian Form</strong> </span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <?php echo session()->getFlashdata('error'); ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <?php $validation = \Config\Services::validation(); ?>
 

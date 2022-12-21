@@ -348,7 +348,7 @@ class Tiket extends BaseController
         $id = user()->id;
 
         session()->setFlashdata('message', 'Upload Bukti Pembayaran Berhasil, Silahkan Tunggu Konfirmasi Admin');
-        return redirect()->to('/user/profile/');
+        return redirect()->to('/user/profile');
     }
 
 

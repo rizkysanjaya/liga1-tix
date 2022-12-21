@@ -177,14 +177,12 @@ class Admin extends BaseController
 
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 } else {
                     $data = [
                         'username' => trim($this->request->getVar('username')),
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 }
             } else {
@@ -201,7 +199,6 @@ class Admin extends BaseController
                         'username' => trim($this->request->getVar('username')),
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 }
             }
