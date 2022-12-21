@@ -147,7 +147,7 @@ class Tiket extends BaseController
         ])) {
             $data['title'] = "Order Tiket";
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user');
+            return redirect()->back()->withInput();
         }
 
         $getKode = model(Getkode::class);
