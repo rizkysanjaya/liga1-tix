@@ -54,7 +54,7 @@
                 <a href="" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#viewModal<?= $t->kd_team ?>">
                   <div class="d-flex w-100 justify-content-start">
                     <img src="/assets/img/team_logo/<?= $t->logo ?>" alt="<?= $t->nama_team ?>" width="30" height="30">
-                    <span style>|</span>
+                    <span style> | </span>
                     <h5 class="mx-2 mb-1 text-end"><?= $t->nama_team ?></h5>
                   </div>
                 </a>
