@@ -114,7 +114,7 @@ class Admin extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user/profile/' . $id)->withInput();
+            return redirect()->to('user/profile')->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);
@@ -177,14 +177,12 @@ class Admin extends BaseController
 
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 } else {
                     $data = [
                         'username' => trim($this->request->getVar('username')),
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 }
             } else {
@@ -201,7 +199,6 @@ class Admin extends BaseController
                         'username' => trim($this->request->getVar('username')),
                         'fullname' => trim($this->request->getVar('fullname')),
                         'bio' => trim($this->request->getVar('bio')),
-
                     ];
                 }
             }
@@ -209,7 +206,7 @@ class Admin extends BaseController
         $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
-        return redirect()->to('admin/profile/' . $id);
+        return redirect()->to('admin/profile');
     }
 
 
