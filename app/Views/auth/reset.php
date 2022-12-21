@@ -50,13 +50,11 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-5 mb-6">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <!-- <span style="ml-5">
-                  <img src="../assets/img/android-icon-96x96.png" class="navbar-brand-img h-30" alt="main_logo">
-                  </span> -->
+
                   <a href="<?= base_url() ?>">
                     <h2 class="font-weight-bolder text-primary text-gradient">Liga1-Tix</h2>
                   </a>
-                  <!-- <h6 class="font-weight-bolder text-primary text-gradient">Selamat datang</h6> -->
+
                   <p class="mb-0">Masukan token yang kami kirim melalui alamat email Anda dan masukan password baru.</p>
                 </div>
                 <div class="card-body">

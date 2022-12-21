@@ -110,7 +110,7 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
 //routes user biasa
 $routes->group('', ['filter' => 'role:client,admin'], function ($routes) {
 
-    $routes->get('user/profile/(:any)', 'User::index/$1');
+    $routes->get('user/profile/', 'User::index');
     $routes->add('user/profile/update_profile/(:any)', 'User::update_profile/$1');
     $routes->get('user/tiket', 'User::tiket');
     $routes->get('user/transaksi', 'User::transaksi');

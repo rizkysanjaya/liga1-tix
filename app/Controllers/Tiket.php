@@ -29,9 +29,6 @@ class Tiket extends BaseController
     {
 
         helper('tglindo_helper');
-        // $this->tiket = new Tiket();
-        // $this->bank = new Bank();
-        // $this->order = new Order();
 
         date_default_timezone_set("Asia/Jakarta");
     }
@@ -43,6 +40,7 @@ class Tiket extends BaseController
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $data['pertandingans'] = $this->pertandingan->search($keyword);
+            session()->setFlashdata('info', 'Hasil pencarian untuk keyword "' . $keyword . '" tidak ditemukan!');
         } else {
             $data['pertandingans'] = $this->pertandingan->where('status', '0')->findAll();
         }
@@ -122,39 +120,35 @@ class Tiket extends BaseController
         $data['tiket'] = $jmltiket;
         $data['harga'] = $harga;
 
-        // print_r($kdpert);
-        // print_r($tribun);
-        // print_r($jmltiket);
-
         return view('user/order', $data);
     }
 
 
     public function gettiket()
     {
-        //currently no validation, still error with redirect
-        // if (!$this->validate([
-        //     'email' => [
-        //         'rules' => 'required|valid_email',
-        //         'errors' => [
-        //             'required' => 'Email harus diisi',
-        //             'valid_email' => 'Email tidak valid'
-        //         ]
-        //     ],
-        //     'no_tlp' => [
-        //         'rules' => 'required|numeric|min_length[10]|max_length[13]',
-        //         'errors' => [
-        //             'required' => 'No. Telepon harus diisi',
-        //             'numeric' => 'No. Telepon harus angka',
-        //             'min_length' => 'No. Telepon minimal 10 angka',
-        //             'max_length' => 'No. Telepon maksimal 13 angka'
-        //         ]
-        //     ]
-        // ])) {
-        //     $data['title'] = "Order Tiket";
-        //     session()->setFlashdata('error', $this->validator->listErrors());
-        //     return redirect()->to('user');
-        // }
+        //ini validasi yang menyebabkan bug redirect error
+        if (!$this->validate([
+            'email' => [
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => 'Email harus diisi',
+                    'valid_email' => 'Email tidak valid'
+                ]
+            ],
+            'no_tlp' => [
+                'rules' => 'required|numeric|min_length[10]|max_length[13]',
+                'errors' => [
+                    'required' => 'No. Telepon harus diisi',
+                    'numeric' => 'No. Telepon harus angka',
+                    'min_length' => 'No. Telepon minimal 10 angka',
+                    'max_length' => 'No. Telepon maksimal 13 angka'
+                ]
+            ]
+        ])) {
+            $data['title'] = "Order Tiket";
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->to('user');
+        }
 
         $getKode = model(Getkode::class);
         $this->order = new Order();
@@ -227,14 +221,6 @@ class Tiket extends BaseController
         return redirect()->to(base_url('user/checkout/' . $kd_order));
     }
 
-    // public function payment($id = '')
-    // {
-
-    //     $sqlcek = $this->db->query("SELECT * FROM orders LEFT JOIN users on orders.id_user = users.id LEFT JOIN pertandingans on orders.kd_pertandingan = pertandingans.kd_pertandingan LEFT JOIN bank on orders.kd_bank = bank.kd_bank WHERE kd_order ='$id'")->result_array();
-    //     // $data['count'] = count($sqlcek);
-    //     $data['tiket'] = $sqlcek;
-    //     return view('user/payment', $data);
-    // }
 
     public function checkout($value = '')
     {
@@ -362,7 +348,7 @@ class Tiket extends BaseController
         $id = user()->id;
 
         session()->setFlashdata('message', 'Upload Bukti Pembayaran Berhasil, Silahkan Tunggu Konfirmasi Admin');
-        return redirect()->to('/user/profile/' . $id);
+        return redirect()->to('/user/profile');
     }
 
 

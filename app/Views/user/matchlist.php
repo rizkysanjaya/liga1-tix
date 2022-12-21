@@ -60,12 +60,25 @@
                                 </div>
 
                             </div>
+                            <?php if (!empty(session()->getFlashdata('info'))) : ?>
+                                <div class="alert alert-warning alert-dismissible fade show m-md-4" role="alert">
 
+                                    <span class="alert-text"><strong>Pertandingan yang Anda cari belum ada!</strong> </span>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                    <br>
+                                    <?php echo session()->getFlashdata('info'); ?>
+
+                                </div>
+                            <?php endif; ?>
                             <!-- jika data tidak ada : -->
                             <?php if (!isset($pertandingans)) : ?>
                                 <div class="alert alert-warning" role="alert">
                                     Belum Ada Pertandingan Yang Diadakan, Stay Tuned!
                                 </div>
+
 
                             <?php else : ?>
                                 <?php

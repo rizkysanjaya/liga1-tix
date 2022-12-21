@@ -17,7 +17,7 @@ class User extends BaseController
         $this->user = new ModelsUser();
     }
 
-    public function index($id)
+    public function index()
     {
         $this->order = new Order();
 
@@ -72,7 +72,7 @@ class User extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user/profile/' . $id)->withInput();
+            return redirect()->to('user/profile')->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);
@@ -166,6 +166,6 @@ class User extends BaseController
         $this->user->update($id, $data);
 
         session()->setFlashdata('message', 'Update Data Berhasil');
-        return redirect()->to('user/profile/' . $id);
+        return redirect()->to('user/profile');
     }
 }

@@ -25,10 +25,7 @@
 
   <script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js') ?>"></script>
   <script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js') ?>"></script>
-  <!----===== Import Datatables===== -->
-  <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-         -->
+
 
 </head>
 
@@ -84,7 +81,7 @@
                         </td>
                         <td>
 
-                          <!-- css table belum rapih yang deskripsi-->
+
                           <div class="d-flex px-2 py-1">
                             <p class="text-xs font-weight-bold mb-0">
                               <?= $k['nama']; ?>
