@@ -47,7 +47,7 @@ $routes->get('user/landpage', 'Home::landpage');
 $routes->group('', ['filter' => 'role:admin'], function ($routes) {
     //dashboard & profile
     $routes->get('admin/dashboard', 'Admin::index');
-    $routes->get('admin/profile/(:any)', 'Admin::profile/$1');
+    $routes->get('admin/profile', 'Admin::profile');
     $routes->add('admin/profile/update_profile/(:any)', 'Admin::update_profile/$1');
 
     //view data

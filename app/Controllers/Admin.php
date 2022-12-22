@@ -61,13 +61,13 @@ class Admin extends BaseController
  * --------------------------------------------------------------------
  */
     //profile
-    public function profile($id)
+    public function profile()
     {
         $this->user = new User();
 
 
-        $data['user'] = $this->user->find($id);
-        return view('admin/profile', $data);
+        // $data['user'] = $this->user->find($id);
+        return view('admin/profile');
     }
 
     public function update_profile($id)
@@ -114,7 +114,7 @@ class Admin extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user/profile')->withInput();
+            return redirect()->to('admin/profile')->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);

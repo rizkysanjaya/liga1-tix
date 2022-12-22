@@ -27,12 +27,12 @@
 
   </div>
   <!-- Landing Page -->
-  <div class="container-fluid d-flex justify-content-around py-4" style="background-image: url('../assets/img/curved-images/bg-color.png') ; background-size: cover;">
+  <div class="row justify-content-around px-4 py-4" style="background-image: url('../assets/img/curved-images/bg-color.png') ; background-size: cover;">
     <!-- Left Sidebar, Football Team Profile List -->
-    <div class="col-md-3 px-2">
+    <div class="col-md-auto my-2">
       <div class="card">
         <div class="card-header">
-          <h5 class="title">Liga1 Team</h5>
+          <h5 class="title text-center">Liga1 Team</h5>
         </div>
         <div class="card-body">
           <div class="list-group">
@@ -52,9 +52,10 @@
               <!-- jika data  ada : -->
               <?php foreach ($team as $t) : ?>
                 <a href="" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#viewModal<?= $t->kd_team ?>">
-                  <div class="d-flex w-100 justify-content-between">
+                  <div class="d-flex w-100 justify-content-start">
                     <img src="/assets/img/team_logo/<?= $t->logo ?>" alt="<?= $t->nama_team ?>" width="30" height="30">
-                    <h5 class="mb-1"><?= $t->nama_team ?></h5>
+                    <span style> | </span>
+                    <h5 class="mx-2 mb-1 text-end"><?= $t->nama_team ?></h5>
                   </div>
                 </a>
 
@@ -65,7 +66,7 @@
                       <div class="modal-header">
                         <h5 class="modal-title" id="myModalLabel1">Team Profile</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                          <i data-feather="x"></i>
+                          <i class="fas fa-times"></i>
                         </button>
                       </div>
                       <div class="modal-body text-center">
@@ -93,7 +94,7 @@
     </div>
     <!-- End of Left Sidebar, Football Team, List with Icon -->
     <!-- Middle Main Content, Banner, Date Live Match List, Date Match History List -->
-    <div class="col-md-6 px-2">
+    <div class="col-md-6 my-2">
       <div class="card">
         <div class="card-header">
           <!-- banner carousel design -->
@@ -129,10 +130,10 @@
           </div>
         </div>
 
-        <div class="card-header">
+        <div class="m-2 text-center">
           <h5 class="title text-center">Live Match</h5>
         </div>
-        <div class="card-body">
+        <div class="p-2">
           <ul class="list-group list-group-flush">
             <!-- jika data tidak ada : -->
             <?php if (!isset($live)) : ?>
@@ -144,23 +145,39 @@
               <!-- jika data  ada : -->
               <?php foreach ($live as $l) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <img src="<?= base_url('assets/img/team_logo/' . $l->logo_team1) ?>" alt="" width="30px" height="30px">
-                  <a href=""><?= $l->nama_team1; ?></a>
-                  <span class="badge bg-gradient-info rounded-pill"><?= $l->skor_team1; ?></span>
-                  <span class="badge bg-primary rounded-pill">VS</span>
-                  <span class="badge bg-gradient-info rounded-pill"><?= $l->skor_team2; ?></span>
-                  <a href=""><?= $l->nama_team2; ?></a>
-                  <img src="<?= base_url('assets/img/team_logo/' . $l->logo_team2) ?>" alt="" width="30px" height="30px">
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $l->logo_team1) ?>" alt="" width="48" height="48">
+                    </div>
+                    <div class="my-1">
+                      <a href=""><?= $l->nama_team1; ?></a>
+                    </div>
+                  </div>
+                  <div class="flex-column text-center">
+                    <div class="btn-group">
+                      <span class="badge bg-gradient-info rounded-pill"><?= $l->skor_team1; ?></span>
+                      <span class="badge bg-primary rounded-pill mx-1">VS</span>
+                      <span class="badge bg-gradient-info rounded-pill"><?= $l->skor_team2; ?></span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $l->logo_team2) ?>" alt="" width="48" height="48">
+                    </div>
+                    <div class="my-1">
+                      <a href=""><?= $l->nama_team2; ?></a>
+                    </div>
+                  </div>
                 </li>
               <?php endforeach; ?>
             <?php endif; ?>
           </ul>
         </div>
 
-        <div class="card-header">
+        <div class="m-2">
           <h5 class="title text-center">Match History</h5>
         </div>
-        <div class="card-body">
+        <div class="p-2">
           <ul class="list-group list-group-flush">
             <!-- jika data tidak ada : -->
             <?php if (!isset($finish)) : ?>
@@ -172,15 +189,30 @@
             <?php else : ?>
               <!-- jika data ada : -->
               <?php foreach ($finish as $f) : ?>
-
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <img src="<?= base_url('assets/img/team_logo/' . $f->logo_team1) ?>" alt="" width="30px" height="30px">
-                  <a href=""><?= $f->nama_team1; ?></a>
-                  <span class="badge bg-gradient-info rounded-pill"><?= $f->skor_team1; ?></span>
-                  <span class="badge bg-primary rounded-pill">VS</span>
-                  <span class="badge bg-gradient-info rounded-pill"><?= $f->skor_team2; ?></span>
-                  <a href=""><?= $f->nama_team2; ?></a>
-                  <img src="<?= base_url('assets/img/team_logo/' . $f->logo_team2) ?>" alt="" width="30px" height="30px">
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $f->logo_team1) ?>" alt="" width="48" height="48">
+                    </div>
+                    <div class="my-1">
+                      <a href=""><?= $f->nama_team1; ?></a>
+                    </div>
+                  </div>
+                  <div class="flex-column text-center">
+                    <div class="btn-group">
+                      <span class="badge bg-gradient-info rounded-pill"><?= $f->skor_team1; ?></span>
+                      <span class="badge bg-primary rounded-pill mx-1">VS</span>
+                      <span class="badge bg-gradient-info rounded-pill"><?= $f->skor_team2; ?></span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $f->logo_team2) ?>" alt="" width="48" height="48">
+                    </div>
+                    <div class="my-1">
+                      <a href=""><?= $f->nama_team2; ?></a>
+                    </div>
+                  </div>
                 </li>
               <?php endforeach; ?>
             <?php endif; ?>
@@ -190,10 +222,10 @@
     </div>
     <!-- End of Main Content -->
     <!-- Right Sidebar, Simplified Date Given Upcoming Schedule -->
-    <div class="col-md-3 px-2">
+    <div class="col-md-auto my-2">
       <div class="card">
         <div class="card-header">
-          <h5 class="title">Upcoming Schedule</h5>
+          <h5 class="title text-center">Upcoming Schedule</h5>
         </div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
@@ -207,14 +239,27 @@
               <!-- jika data ada : -->
               <?php foreach ($upcoming as $up) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-
-                  <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team1) ?>" alt="" width="30px" height="30px">
-                  <p style="font-size:12px;"><?= $up->nama_team1; ?></p>
-                  <span class="badge bg-primary rounded-pill">VS</span>
-                  <p style="font-size:12px;"><?= $up->nama_team2; ?></p>
-                  <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team2) ?>" alt="" width="30px" height="30px">
-
-
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team1) ?>" alt="" width="30" height="30">
+                    </div>
+                    <div class="my-1">
+                      <a style="font-size:12px;" href=""><?= $up->nama_team1; ?></a>
+                    </div>
+                  </div>
+                  <div class="flex-column text-center">
+                    <div class="btn-group">
+                      <span class="badge bg-primary rounded-pill mx-1">VS</span>
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="my-1">
+                      <img src="<?= base_url('assets/img/team_logo/' . $up->logo_team2) ?>" alt="" width="30" height="30">
+                    </div>
+                    <div class="my-1">
+                      <a style="font-size:12px;" href=""><?= $up->nama_team2; ?></a>
+                    </div>
+                  </div>
                 </li>
                 <span class="badge bg-gradient-warning rounded-pill"><?= hari_indo(date('N', strtotime($up->tanggal))) . ', ' . tanggal_indo(date('Y-m-d', strtotime('' . $up->tanggal . ''))) . ', ' . date('H:i', strtotime($up->waktu));  ?></span>
                 <hr class="no-border">
