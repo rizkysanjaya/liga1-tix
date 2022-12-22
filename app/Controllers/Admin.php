@@ -114,7 +114,7 @@ class Admin extends BaseController
 
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
-            return redirect()->to('user/profile')->withInput();
+            return redirect()->to('admin/profile')->withInput();
         }
         $file = $this->request->getFile('user_image');
         $userItem = $this->user->find($id);
